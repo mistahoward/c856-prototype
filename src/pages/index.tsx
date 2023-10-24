@@ -8,9 +8,9 @@ import '../scss/main.scss';
 const IndexPage: React.FC<PageProps> = () => {
 	console.debug();
 	return (
-		<Container fluid>
+		<Container fluid id="root">
 			<Layout>
-				<Carousel fade>
+				<Carousel fade id="main-carousel">
 					<Carousel.Item>
 						<img src="https://picsum.photos/800/400?random=1" alt="First slide" />
 					</Carousel.Item>

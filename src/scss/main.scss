@@ -3,3 +3,12 @@
 .container-fluid {
 	padding: 0;
 }
+
+#root {
+	max-width: 100vw;
+	overflow-x: hidden;
+}
+
+#footer, #header, #main-carousel {
+	user-select: none;
+}
