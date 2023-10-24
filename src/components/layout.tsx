@@ -1,17 +1,40 @@
 import React, { ReactNode } from 'react';
-import { Col, Navbar, Row } from 'react-bootstrap';
+import { Button, Col, Container, Form, Nav, Navbar, Row } from 'react-bootstrap';
 
 const Layout = ({ children }: { children: ReactNode }) => {
 	console.debug();
 	return (
 		<>
-			<Navbar className="bg-body-tertiary">
+			<Navbar expand="lg" className="bg-body-tertiary">
 				<Navbar.Brand href="/">
 					<Row>
-						<Col>TT</Col>
+						<Col className="ms-2">TT</Col>
 						<Col>Tropical Taniti</Col>
 					</Row>
 				</Navbar.Brand>
+				<Navbar.Toggle aria-controls="basic-navbar-nav" />
+				<Navbar.Collapse id="basic-navbar-nav">
+					<Nav className="me-auto">
+						<Nav.Link href="/About">About</Nav.Link>
+						<Nav.Link href="/Destinations">Destinations</Nav.Link>
+						<Nav.Link href="/Accommodations">Accommodations</Nav.Link>
+						<Nav.Link href="/Reviews">Reviews</Nav.Link>
+					</Nav>
+					<Form className="me-2">
+						<Row>
+							<Col xs="auto">
+								<Form.Control
+									type="text"
+									placeholder="Search"
+									className="me-sm-2"
+								/>
+							</Col>
+							<Col>
+								<Button variant="outline-secondary" type="submit">Submit</Button>
+							</Col>
+						</Row>
+					</Form>
+				</Navbar.Collapse>
 			</Navbar>
 			{children}
 		</>
