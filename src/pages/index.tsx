@@ -15,14 +15,17 @@ const IndexPage: FC<PageProps> = () => {
 					<Carousel.Item>
 						<StaticImage src="../images/carousel_1.jpg" alt="Tropical Scene" />
 						<Carousel.Caption className="text-black">
-							Photo by &nbsp;
-							<a href="https://unsplash.com/@itte?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-								Ittemaldiviano 🇲🇻
-							</a>
-							&nbsp;on&nbsp;
-							<a href="https://unsplash.com/photos/green-palm-tree-on-white-sand-beach-during-daytime-jmkMl20jNS0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-								Unsplash
-							</a>
+							<h3>Your Palm-Shadowed Sanctuary Awaits</h3>
+							<p>
+								Photo by &nbsp;
+								<a href="https://unsplash.com/@itte?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+									Ittemaldiviano 🇲🇻
+								</a>
+								&nbsp;on&nbsp;
+								<a href="https://unsplash.com/photos/green-palm-tree-on-white-sand-beach-during-daytime-jmkMl20jNS0?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+									Unsplash
+								</a>
+							</p>
 						</Carousel.Caption>
 					</Carousel.Item>
 					<Carousel.Item>
@@ -31,14 +34,17 @@ const IndexPage: FC<PageProps> = () => {
 							alt="Coconut Trees and Body of Water"
 						/>
 						<Carousel.Caption>
-							Photo by &nbsp;
-							<a href="https://unsplash.com/@nickkane?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-								Nick Kane
-							</a>
-							&nbsp;on&nbsp;
-							<a href="https://unsplash.com/photos/coconut-trees-and-body-of-water-painting-eaI3VpRnMbw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-								Unsplash
-							</a>
+							<h3>Serenity in Shades of Blue</h3>
+							<p>
+								Photo by &nbsp;
+								<a href="https://unsplash.com/@nickkane?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+									Nick Kane
+								</a>
+								&nbsp;on&nbsp;
+								<a href="https://unsplash.com/photos/coconut-trees-and-body-of-water-painting-eaI3VpRnMbw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+									Unsplash
+								</a>
+							</p>
 						</Carousel.Caption>
 					</Carousel.Item>
 					<Carousel.Item>
@@ -47,14 +53,17 @@ const IndexPage: FC<PageProps> = () => {
 							alt="Tropical Cliff line with a village"
 						/>
 						<Carousel.Caption className="text-black">
-							Photo by&nbsp;
-							<a href="https://unsplash.com/@nathan_cima?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-								Nathan Cima
-							</a>
-							&nbsp;on&nbsp;
-							<a href="https://unsplash.com/photos/a-view-of-a-beach-with-houses-on-the-cliff-2KZksT2BSDw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
-								Unsplash
-							</a>
+							<h3 className="text-white">Coastal Charm, Sunlit Dreams</h3>
+							<p>
+								Photo by&nbsp;
+								<a href="https://unsplash.com/@nathan_cima?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+									Nathan Cima
+								</a>
+								&nbsp;on&nbsp;
+								<a href="https://unsplash.com/photos/a-view-of-a-beach-with-houses-on-the-cliff-2KZksT2BSDw?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+									Unsplash
+								</a>
+							</p>
 						</Carousel.Caption>
 					</Carousel.Item>
 				</Carousel>
