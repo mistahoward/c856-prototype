@@ -14,3 +14,28 @@
 #main-carousel {
 	user-select: none;
 }
+
+#main-carousel {
+	height: 68vh;
+	min-height: 68vh;
+	img {
+		min-width: 100vw;
+	}
+}
+
+.carousel-caption {
+	&.text-black {
+		a {
+			&:hover, &:active, &:focus {
+				color: #323232 !important;
+			}
+			color: black !important;
+		}
+	}
+	a {
+		&:hover, &:active, &:focus {
+			color: b2b2b2	 !important;
+		}
+		color: white !important;
+	}
+}
