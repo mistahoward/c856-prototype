@@ -47,13 +47,18 @@
 		object-fit: cover;
 		user-select: none;
 	}
+	.card {
+		position: absolute;
+		margin-top: 20%;
+		margin-left: 5%;
+		z-index: 20;
+	}
 }
 
 .card {
-	position: absolute;
-	margin-top: 20%;
-	margin-left: 5%;
-	z-index: 20;
+	.card-img-top {
+		max-height: 200px;
+	}
 }
 
 .overlay {
