@@ -1,4 +1,4 @@
-@import "~bootstrap/scss/bootstrap";
+@import '~bootstrap/scss/bootstrap';
 
 .container-fluid {
 	padding: 0;
@@ -9,6 +9,8 @@
 	overflow-x: hidden;
 }
 
-#footer, #header, #main-carousel {
+#footer,
+#header,
+#main-carousel {
 	user-select: none;
 }

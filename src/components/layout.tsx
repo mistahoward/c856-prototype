@@ -39,7 +39,7 @@ const Layout = ({ children }: { children: ReactNode }) => {
 				</Navbar.Collapse>
 			</Navbar>
 			{children}
-			<Navbar fixed="bottom" id="footer" className="bg-body-secondary">
+			<Navbar id="footer" className="bg-body-secondary">
 				<Navbar.Collapse className="justify-content-center">
 					<Navbar.Text>
 						Copyright 2023
