@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import type { HeadFC, PageProps } from 'gatsby';
-import { Container, Carousel } from 'react-bootstrap';
+import { Container, Carousel, Card, Button } from 'react-bootstrap';
 import { StaticImage } from 'gatsby-plugin-image';
 
 import Layout from '../components/layout';
@@ -70,8 +70,32 @@ const IndexPage: FC<PageProps> = () => {
 						</Carousel.Caption>
 					</Carousel.Item>
 				</Carousel>
-				Photo by <a href="https://unsplash.com/@emilybauman__?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Emily Bauman</a> on <a href="https://unsplash.com/photos/person-holding-coconut-fnAN6OFXR9A?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
-  
+				<div className="image-card-container">
+					<Card>
+						<Card.Body>
+							<Card.Title>Card Title</Card.Title>
+							<Card.Text>
+								Some quick example text to build on the card title and make up the
+								bulk of the card's content.
+							</Card.Text>
+							<Button variant="primary">Go somewhere</Button>
+						</Card.Body>
+					</Card>
+					<StaticImage
+						src="../images/lady_image_1.jpg"
+						alt="Lady on a Beach holding a drink"
+					/>
+					<div className="attribution-overlay">
+						Photo by&nbsp;
+						<a href="https://unsplash.com/@emilybauman__?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+							Emily Bauman
+						</a>
+						&nbsp;on&nbsp;
+						<a href="https://unsplash.com/photos/person-holding-coconut-fnAN6OFXR9A?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+							Unsplash
+						</a>
+					</div>
+				</div>
 			</Layout>
 		</Container>
 	);
