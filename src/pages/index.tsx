@@ -14,7 +14,8 @@ const IndexPage: FC<PageProps> = () => {
 				<Carousel fade id="main-carousel">
 					<Carousel.Item>
 						<StaticImage src="../images/carousel_1.jpg" alt="Tropical Scene" />
-						<Carousel.Caption className="text-black">
+						<div className="overlay" />
+						<Carousel.Caption>
 							<h3>Your Palm-Shadowed Sanctuary Awaits</h3>
 							<p>
 								Photo by &nbsp;
@@ -33,6 +34,7 @@ const IndexPage: FC<PageProps> = () => {
 							src="../images/carousel_2.jpg"
 							alt="Coconut Trees and Body of Water"
 						/>
+						<div className="overlay" />
 						<Carousel.Caption>
 							<h3>Serenity in Shades of Blue</h3>
 							<p>
@@ -52,8 +54,9 @@ const IndexPage: FC<PageProps> = () => {
 							src="../images/carousel_3.jpg"
 							alt="Tropical Cliff line with a village"
 						/>
-						<Carousel.Caption className="text-black">
-							<h3 className="text-white">Coastal Charm, Sunlit Dreams</h3>
+						<div className="overlay" />
+						<Carousel.Caption>
+							<h3>Coastal Charm, Sunlit Dreams</h3>
 							<p>
 								Photo by&nbsp;
 								<a href="https://unsplash.com/@nathan_cima?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
@@ -67,6 +70,8 @@ const IndexPage: FC<PageProps> = () => {
 						</Carousel.Caption>
 					</Carousel.Item>
 				</Carousel>
+				Photo by <a href="https://unsplash.com/@emilybauman__?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Emily Bauman</a> on <a href="https://unsplash.com/photos/person-holding-coconut-fnAN6OFXR9A?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+  
 			</Layout>
 		</Container>
 	);

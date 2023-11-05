@@ -39,3 +39,13 @@
 		color: white !important;
 	}
 }
+
+.overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.5); /* This is the gray overlay */
+	pointer-events: none; /* This ensures that clicks go through the overlay to the image/link below */
+  }
