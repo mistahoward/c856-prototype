@@ -15,10 +15,10 @@ const Layout = ({ children }: { children: ReactNode }) => (
 			<Navbar.Toggle aria-controls="basic-navbar-nav" />
 			<Navbar.Collapse id="basic-navbar-nav">
 				<Nav className="me-auto">
-					<Nav.Link href="/About">About</Nav.Link>
-					<Nav.Link href="/Destinations">Destinations</Nav.Link>
-					<Nav.Link href="/Accommodations">Accommodations</Nav.Link>
-					<Nav.Link href="/Reviews">Reviews</Nav.Link>
+					<Nav.Link href="/about">About</Nav.Link>
+					<Nav.Link href="/destinations">Destinations</Nav.Link>
+					<Nav.Link href="/accommodations">Accommodations</Nav.Link>
+					<Nav.Link href="/reviews">Reviews</Nav.Link>
 				</Nav>
 				<Form className="me-2">
 					<Row>
