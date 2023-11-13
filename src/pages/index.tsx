@@ -82,7 +82,7 @@ const IndexPage: FC<PageProps> = () => {
 						</Card.Body>
 					</Card>
 					<StaticImage
-						src="../images/lady_image_1.jpg"
+						src="../images/lady_1.jpg"
 						alt="Lady on a Beach holding a drink"
 					/>
 					<div className="attribution-overlay">
@@ -107,8 +107,8 @@ const IndexPage: FC<PageProps> = () => {
 								<Card.Body>
 									<Card.Title>Card Title</Card.Title>
 									<Card.Text>
-										Some quick example text to build on the card title and make up
-										the bulk of the card's content.
+										Some quick example text to build on the card title and make
+										up the bulk of the card's content.
 									</Card.Text>
 									<Button variant="primary">Go somewhere</Button>
 								</Card.Body>
@@ -120,8 +120,8 @@ const IndexPage: FC<PageProps> = () => {
 								<Card.Body>
 									<Card.Title>Card Title</Card.Title>
 									<Card.Text>
-										Some quick example text to build on the card title and make up
-										the bulk of the card's content.
+										Some quick example text to build on the card title and make
+										up the bulk of the card's content.
 									</Card.Text>
 									<Button variant="primary">Go somewhere</Button>
 								</Card.Body>
@@ -133,8 +133,8 @@ const IndexPage: FC<PageProps> = () => {
 								<Card.Body>
 									<Card.Title>Card Title</Card.Title>
 									<Card.Text>
-										Some quick example text to build on the card title and make up
-										the bulk of the card's content.
+										Some quick example text to build on the card title and make
+										up the bulk of the card's content.
 									</Card.Text>
 									<Button variant="primary">Go somewhere</Button>
 								</Card.Body>
@@ -142,6 +142,18 @@ const IndexPage: FC<PageProps> = () => {
 						</Col>
 					</Row>
 				</Container>
+				<div className="image-card-container">
+					<div className="attribution-overlay">
+						Photo by&nbsp;
+						<a href="https://unsplash.com/@kaizennguyen?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+							Kaizen Nguyễn
+						</a>
+						&nbsp;on&nbsp;
+						<a href="https://unsplash.com/photos/six-clear-glass-mason-jars-filled-with-juice-on-black-table-jcLcWL8D7AQ?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
+							Unsplash
+						</a>
+					</div>
+				</div>
 			</Layout>
 		</Container>
 	);
