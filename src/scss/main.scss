@@ -53,6 +53,16 @@
 		margin-left: 5%;
 		z-index: 20;
 	}
+	.attribution-overlay {
+		position: absolute;
+		margin-top: -5%;
+		margin-right: 10px;
+		background: rgba(0, 0, 0, 0.5);
+		color: white;
+		padding: 5px 10px;
+		z-index: 10;
+		user-select: none;
+	}
 }
 
 .card {
@@ -69,15 +79,4 @@
 	bottom: 0;
 	background: rgba(0, 0, 0, 0.5);
 	pointer-events: none;
-}
-
-.attribution-overlay {
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	margin-right: 10px;
-	background: rgba(0, 0, 0, 0.5);
-	color: white;
-	padding: 5px 10px;
-	z-index: 10;
 }

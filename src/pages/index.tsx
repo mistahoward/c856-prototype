@@ -76,7 +76,7 @@ const IndexPage: FC<PageProps> = () => {
 							<Card.Title>Card Title</Card.Title>
 							<Card.Text>
 								Some quick example text to build on the card title and make up the
-								bulk of the card's content.
+								bulk of the card&apos;s content.
 							</Card.Text>
 							<Button variant="primary">Go somewhere</Button>
 						</Card.Body>
@@ -143,6 +143,20 @@ const IndexPage: FC<PageProps> = () => {
 					</Row>
 				</Container>
 				<div className="image-card-container">
+					<Card>
+						<Card.Body>
+							<Card.Title>Card Title</Card.Title>
+							<Card.Text>
+								Some quick example text to build on the card title and make up the
+								bulk of the card&apos;s content.
+							</Card.Text>
+							<Button variant="primary">Go somewhere</Button>
+						</Card.Body>
+					</Card>
+					<StaticImage
+						src="../images/drink_1.jpg"
+						alt="Lady on a Beach holding a drink"
+					/>
 					<div className="attribution-overlay">
 						Photo by&nbsp;
 						<a href="https://unsplash.com/@kaizennguyen?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">
