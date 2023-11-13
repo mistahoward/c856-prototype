@@ -108,7 +108,7 @@ const IndexPage: FC<PageProps> = () => {
 									<Card.Title>Card Title</Card.Title>
 									<Card.Text>
 										Some quick example text to build on the card title and make
-										up the bulk of the card's content.
+										up the bulk of the card&apos;s content.
 									</Card.Text>
 									<Button variant="primary">Go somewhere</Button>
 								</Card.Body>
@@ -121,7 +121,7 @@ const IndexPage: FC<PageProps> = () => {
 									<Card.Title>Card Title</Card.Title>
 									<Card.Text>
 										Some quick example text to build on the card title and make
-										up the bulk of the card's content.
+										up the bulk of the card&apos;s content.
 									</Card.Text>
 									<Button variant="primary">Go somewhere</Button>
 								</Card.Body>
@@ -134,7 +134,7 @@ const IndexPage: FC<PageProps> = () => {
 									<Card.Title>Card Title</Card.Title>
 									<Card.Text>
 										Some quick example text to build on the card title and make
-										up the bulk of the card's content.
+										up the bulk of the card&apos;s content.
 									</Card.Text>
 									<Button variant="primary">Go somewhere</Button>
 								</Card.Body>
@@ -168,6 +168,52 @@ const IndexPage: FC<PageProps> = () => {
 						</a>
 					</div>
 				</div>
+				<Container className="mt-4 mb-4">
+					<Row>
+						<h1 className="display-4">Accommodations</h1>
+					</Row>
+					<Row>
+						<Col>
+							<Card>
+								<Card.Img variant="top" src="https://placehold.co/100x180" />
+								<Card.Body>
+									<Card.Title>Card Title</Card.Title>
+									<Card.Text>
+										Some quick example text to build on the card title and make
+										up the bulk of the card&apos;s content.
+									</Card.Text>
+									<Button variant="primary">Go somewhere</Button>
+								</Card.Body>
+							</Card>
+						</Col>
+						<Col>
+							<Card>
+								<Card.Img variant="top" src="https://placehold.co/100x180" />
+								<Card.Body>
+									<Card.Title>Card Title</Card.Title>
+									<Card.Text>
+										Some quick example text to build on the card title and make
+										up the bulk of the card&apos;s content.
+									</Card.Text>
+									<Button variant="primary">Go somewhere</Button>
+								</Card.Body>
+							</Card>
+						</Col>
+						<Col>
+							<Card>
+								<Card.Img variant="top" src="https://placehold.co/100x180" />
+								<Card.Body>
+									<Card.Title>Card Title</Card.Title>
+									<Card.Text>
+										Some quick example text to build on the card title and make
+										up the bulk of the card&apos;s content.
+									</Card.Text>
+									<Button variant="primary">Go somewhere</Button>
+								</Card.Body>
+							</Card>
+						</Col>
+					</Row>
+				</Container>
 			</Layout>
 		</Container>
 	);
