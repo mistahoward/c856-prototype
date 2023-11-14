@@ -19,7 +19,7 @@ const tanitiAccommodations: Accommodation[] = [
 				info: 'Offers a cozy beachside room with beautiful views and access to recreational activities.'
 			}
 		},
-		image: '',
+		image: '/static/pictures/lagoon_paradise.jpg',
 	},
 	{
 		title: 'Blue Lagoon Inn',

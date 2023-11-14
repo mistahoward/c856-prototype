@@ -84,20 +84,29 @@
 
 .map-container {
 	display: flex;
-  
+
 	.markers-sidebar {
-	  width: 25vw;
-	  height: 95vh;
-	  overflow-y: auto;
-	  overflow-x: none;
-	  background-color: white;
-	  padding: 20px;
-	  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
-	  
-	  h3 {
-		margin-top: 0;
-	  }
-	  
+		width: 25vw;
+		height: 95vh;
+		overflow-y: auto;
+		overflow-x: none;
+		background-color: white;
+		padding: 20px;
+		box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+		
+		h3 {
+			margin-top: 0;
+		}
+
+		.location-card {
+			cursor: pointer;
+			&:hover {
+				.card {
+					box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+					background-color: #f5f5f5;
+				}
+			}
+		}
 	}
   
 	.leaflet-container {

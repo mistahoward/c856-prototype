@@ -9,14 +9,14 @@ const MarkersList = ({
 		<h3>{title}</h3>
 		{locations.map((marker, index) => (
 			<Row
-				className="mb-2"
+				className="mb-2 location-card"
 				onClick={() => {
 					map.setView(marker.coordinates, 13);
 					openPopup(index);
 				}}
 			>
 				<Card>
-					<Card.Img variant="top" src={marker.image} />
+					<Card.Img variant="top" width={300} height={225} src={marker.image} />
 					<Card.Body>
 						<Card.Title>{marker.title}</Card.Title>
 						<Card.Text>{marker.description}</Card.Text>
