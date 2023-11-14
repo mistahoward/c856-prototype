@@ -39,7 +39,7 @@ const tanitiAccommodations: Accommodation[] = [
 				info: 'A standard room with essential amenities, perfect for budget-conscious travelers.'
 			}
 		},
-		image: '',
+		image: '/static/pictures/blue_lagoon.jpg',
 	},
 	{
 		title: 'Sunset Beach Bungalows',
@@ -59,7 +59,7 @@ const tanitiAccommodations: Accommodation[] = [
 				info: 'A comfortable bungalow with easy beach access and free kayak rentals.'
 			}
 		},
-		image: '',
+		image: '/static/pictures/sunset_beach.jpg',
 	}
 ];
 
