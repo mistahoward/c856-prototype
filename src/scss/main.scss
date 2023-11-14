@@ -81,3 +81,28 @@
 	background: rgba(0, 0, 0, 0.5);
 	pointer-events: none;
 }
+
+.map-container {
+	display: flex;
+  
+	.markers-sidebar {
+	  width: 25vw;
+	  height: 95vh;
+	  overflow-y: auto;
+	  overflow-x: none;
+	  background-color: white;
+	  padding: 20px;
+	  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+	  
+	  h3 {
+		margin-top: 0;
+	  }
+	  
+	}
+  
+	.leaflet-container {
+	  flex-grow: 1;
+	  height: 95vh;
+	}
+  }
+  

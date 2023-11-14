@@ -3,15 +3,15 @@ import { HeadFC } from 'gatsby';
 import { Container } from 'react-bootstrap';
 
 import Layout from '../components/layout';
-import MapDisplay from '../components/map';
 
 import '../scss/main.scss';
+import tanitiAccommodations from '../data/accommodations';
+import MapContainer from '../components/map-container';
 
 const AccommodationsPage = () => (
 	<Container fluid id="root">
 		<Layout>
-			<MapDisplay />
-			testing
+			<MapContainer locations={tanitiAccommodations} />
 		</Layout>
 	</Container>
 );

@@ -18,7 +18,8 @@ const tanitiAccommodations: Accommodation[] = [
 				price: 600,
 				info: 'Offers a cozy beachside room with beautiful views and access to recreational activities.'
 			}
-		}
+		},
+		image: '',
 	},
 	{
 		title: 'Blue Lagoon Inn',
@@ -37,7 +38,8 @@ const tanitiAccommodations: Accommodation[] = [
 				price: 500,
 				info: 'A standard room with essential amenities, perfect for budget-conscious travelers.'
 			}
-		}
+		},
+		image: '',
 	},
 	{
 		title: 'Sunset Beach Bungalows',
@@ -56,7 +58,8 @@ const tanitiAccommodations: Accommodation[] = [
 				price: 550,
 				info: 'A comfortable bungalow with easy beach access and free kayak rentals.'
 			}
-		}
+		},
+		image: '',
 	}
 ];
 

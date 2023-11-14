@@ -1,0 +1,69 @@
+import React, { useMemo, useRef, useState } from 'react';
+
+import { Row, Col } from 'react-bootstrap';
+import {
+	MapContainer as LeafletMapContainer, Marker, Popup, TileLayer
+} from 'react-leaflet';
+import { StaticImage } from 'gatsby-plugin-image';
+
+import type { MapContainerProps } from './types';
+import MarkersList from './marker-list';
+
+const MapContainer = ({ locations }: MapContainerProps) => {
+	const position = [-16.5004, -151.7415];
+	const [map, setMap] = useState<any>(null);
+	const markerRefs = useRef<any>([]);
+
+	const openPopup = (index: number) => {
+		if (markerRefs.current[index]) {
+			markerRefs.current[index].openPopup();
+		}
+	};
+
+	const displayMap = useMemo(
+		() => (
+			<LeafletMapContainer center={position} zoom={13} scrollWheelZoom={false} ref={setMap}>
+				<TileLayer
+					attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+					url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+				/>
+				{locations.map((marker, index) => (
+					<Marker
+						position={marker.coordinates}
+						ref={(ref) => {
+							markerRefs.current[index] = ref;
+						}}
+					>
+						<Popup>
+							<Row>
+								<Col>
+									<StaticImage src={marker.image} alt={marker.title} />
+								</Col>
+							</Row>
+							<Row>
+								<Col>{marker.title}</Col>
+							</Row>
+							<Row>
+								<Col>Link</Col>
+							</Row>
+						</Popup>
+					</Marker>
+				))}
+			</LeafletMapContainer>
+		),
+		[]
+	);
+	return (
+		<div className="map-container">
+			<MarkersList
+				openPopup={openPopup}
+				map={map}
+				title="Accommodations"
+				locations={locations}
+			/>
+			{displayMap}
+		</div>
+	);
+};
+
+export default MapContainer;
