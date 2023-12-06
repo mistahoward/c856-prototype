@@ -4,6 +4,7 @@ export type Coordinates = {
 };
 
 export type Location = {
+	id: number;
 	title: string;
 	description: string;
 	coordinates: Coordinates;

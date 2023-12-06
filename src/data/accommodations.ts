@@ -2,6 +2,7 @@ import type { Accommodation } from '../types';
 
 const tanitiAccommodations: Accommodation[] = [
 	{
+		id: 1,
 		title: 'Lagoon Paradise Resort',
 		description: 'A luxurious resort offering overwater bungalows with stunning views of the lagoon.',
 		coordinates: { lat: -16.4990, lng: -151.7370 },
@@ -22,6 +23,7 @@ const tanitiAccommodations: Accommodation[] = [
 		image: '/static/pictures/lagoon_paradise.jpg',
 	},
 	{
+		id: 2,
 		title: 'Blue Lagoon Inn',
 		description: 'A charming inn located near Matira Beach, known for its friendly service and local cuisine.',
 		coordinates: { lat: -16.5415, lng: -151.7381 },
@@ -42,6 +44,7 @@ const tanitiAccommodations: Accommodation[] = [
 		image: '/static/pictures/blue_lagoon.jpg',
 	},
 	{
+		id: 3,
 		title: 'Sunset Beach Bungalows',
 		description: 'Beachfront bungalows offering a unique blend of traditional design and modern comfort.',
 		coordinates: { lat: -16.5055, lng: -151.7530 },

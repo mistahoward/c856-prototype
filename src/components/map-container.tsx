@@ -7,6 +7,7 @@ import {
 
 import type { MapContainerProps } from './types';
 import MarkersList from './marker-list';
+import { navigate } from 'gatsby';
 
 const MapContainer = ({ locations }: MapContainerProps) => {
 	const position = [-16.5004, -151.7415];
@@ -48,7 +49,7 @@ const MapContainer = ({ locations }: MapContainerProps) => {
 										className="w-100"
 										variant="primary"
 										onClick={() => {
-											// navigate
+											navigate(`/accommodation?${marker.id}`);
 										}}
 									>
 										See More
