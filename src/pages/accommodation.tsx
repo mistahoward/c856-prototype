@@ -9,7 +9,6 @@ import tanitiAccommodations from '../data/accommodations';
 import Layout from '../components/layout';
 
 import '../scss/main.scss';
-import '../scss/accommodation.scss';
 
 const AccommodationPage: FC<PageProps> = ({ location }) => {
 	const requestedAccommodationId = location.search.replace('?', '');
