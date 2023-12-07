@@ -30,7 +30,7 @@ export type Destination = Location & {
 	detailed_description: string;
 };
 
-type Ratings = 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5;
+export type Ratings = 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5;
 
 export type Review = {
 	name: string;
@@ -38,4 +38,5 @@ export type Review = {
 	review: string;
 	rating: Ratings;
 	image: string;
+	date: EpochTimeStamp;
 };

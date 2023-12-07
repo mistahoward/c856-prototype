@@ -1,5 +1,14 @@
 import type { Review } from '../types';
 
+export const epochToReadableDate = (epoch: EpochTimeStamp) => {
+	const date = new Date(epoch);
+	return date.toLocaleDateString('en-US', {
+		month: 'long',
+		day: '2-digit',
+		year: 'numeric',
+	});
+};
+
 const tanitiReviews: Review[] = [
 	{
 		name: 'John Doe',
@@ -7,6 +16,7 @@ const tanitiReviews: Review[] = [
 		review: 'An absolutely breathtaking experience! The scenic beauty was unparalleled, and the local cuisine was delightful. Would definitely recommend to anyone looking for an adventure.',
 		rating: 5,
 		image: '/static/pictures/john_doe.jpg',
+		date: 1673036400000,
 	},
 	{
 		name: 'Emily Smith',
@@ -14,6 +24,7 @@ const tanitiReviews: Review[] = [
 		review: "A truly magical place. The sunsets are incredible, and the people are so welcoming. The only downside was the humidity, but it's a small price to pay for such beauty.",
 		rating: 4.5,
 		image: '/static/pictures/emily_smith.jpg',
+		date: 1675628400000,
 	},
 	{
 		name: 'Carlos Rodriguez',
@@ -21,6 +32,7 @@ const tanitiReviews: Review[] = [
 		review: "The perfect getaway for our anniversary. The island's charm and the luxurious resort made our stay unforgettable. The guided tours were informative and engaging.",
 		rating: 5,
 		image: '/static/pictures/carlos_rodriguez.jpg',
+		date: 1681302000000,
 	},
 	{
 		name: 'Aisha Khan',
@@ -28,13 +40,7 @@ const tanitiReviews: Review[] = [
 		review: "As an avid traveler, I've seen many places, but this island stole my heart. The lush forests and pristine beaches are a nature lover's dream. However, the nightlife was a bit lacking.",
 		rating: 4,
 		image: '/static/pictures/aisha_khan.jpg',
-	},
-	{
-		name: 'Thomas Müller',
-		age: 37,
-		review: 'A decent holiday spot with lots to do. Great for families with kids. Some areas are a bit crowded, but overall, a great experience. The water sports were a highlight for me.',
-		rating: 4,
-		image: '/static/pictures/thomas_muller.jpg',
+		date: 1683894000000,
 	},
 ];
 
