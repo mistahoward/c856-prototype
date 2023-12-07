@@ -11,7 +11,7 @@ import MapContainer from '../components/map-container';
 const AccommodationsPage = () => (
 	<Container fluid id="root">
 		<Layout>
-			<MapContainer locations={tanitiAccommodations} />
+			<MapContainer type="accommodation" locations={tanitiAccommodations} />
 		</Layout>
 	</Container>
 );

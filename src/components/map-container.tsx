@@ -4,12 +4,12 @@ import { Row, Col, Button } from 'react-bootstrap';
 import {
 	MapContainer as LeafletMapContainer, Marker, Popup, TileLayer
 } from 'react-leaflet';
+import { navigate } from 'gatsby';
 
 import type { MapContainerProps } from './types';
 import MarkersList from './marker-list';
-import { navigate } from 'gatsby';
 
-const MapContainer = ({ locations }: MapContainerProps) => {
+const MapContainer = ({ locations, type }: MapContainerProps) => {
 	const position = [-16.5004, -151.7415];
 	const [map, setMap] = useState<any>(null);
 	const markerRefs = useRef<any>([]);
@@ -37,7 +37,7 @@ const MapContainer = ({ locations }: MapContainerProps) => {
 						<Popup>
 							<Row className="mb-1">
 								<Col>
-									<img src={marker.image} width="100%" alt={marker.title}/>
+									<img src={marker.image} width="100%" alt={marker.title} />
 								</Col>
 							</Row>
 							<Row className="mb-1">
@@ -49,7 +49,7 @@ const MapContainer = ({ locations }: MapContainerProps) => {
 										className="w-100"
 										variant="primary"
 										onClick={() => {
-											navigate(`/accommodation?${marker.id}`);
+											navigate(`/${type}/?${marker.id}`);
 										}}
 									>
 										See More

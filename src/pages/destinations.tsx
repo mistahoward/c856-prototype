@@ -4,17 +4,16 @@ import { HeadFC } from 'gatsby';
 
 import Layout from '../components/layout';
 import '../scss/main.scss';
+import MapContainer from '../components/map-container';
+import tanitiDestinations from '../data/destinations';
 
-const DestinationPage = () => {
-	console.debug();
-	return (
-		<Container id="root" fluid>
-			<Layout>
-				Opes, I&apos;m a page!
-			</Layout>
-		</Container>
-	);
-};
+const DestinationPage = () => (
+	<Container fluid id="root">
+		<Layout>
+			<MapContainer type="destination" locations={tanitiDestinations} />
+		</Layout>
+	</Container>
+);
 
 export default DestinationPage;
 
