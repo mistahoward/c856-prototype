@@ -9,6 +9,7 @@ const MarkersList = ({
 		<h3>{title}</h3>
 		{locations.map((marker, index) => (
 			<Row
+				key={`${marker.id}-row`}
 				className="mb-2 location-card"
 				onClick={() => {
 					map.setView(marker.coordinates, 13);

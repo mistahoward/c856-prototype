@@ -13,11 +13,7 @@ const DestinationPage: FC<PageProps> = ({ location }) => {
 		(td) => td.id.toString() === requestedDestinationId
 	);
 	const destinationExists = !!destination;
-	if (!destinationExists) {
-		navigate('404');
-		return null;
-	}
-
+	if (!destinationExists) return null;
 	return (
 		<Container fluid id="root">
 			<Layout>

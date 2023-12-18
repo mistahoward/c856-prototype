@@ -4,6 +4,9 @@ const config: GatsbyConfig = {
 	// siteMetadata: {
 	// 	siteUrl: 'https://www.yourdomain.tld',
 	// },
+	flags: {
+		DEV_SSR: true
+	},
 	pathPrefix: '/c856-prototype',
 	// More easily incorporate content into your pages through automatic TypeScript type generation
 	// and better GraphQL IntelliSense.

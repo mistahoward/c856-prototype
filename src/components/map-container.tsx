@@ -29,6 +29,7 @@ const MapContainer = ({ locations, type }: MapContainerProps) => {
 				/>
 				{locations.map((marker, index) => (
 					<Marker
+						key={marker.id}
 						position={marker.coordinates}
 						ref={(ref) => {
 							markerRefs.current[index] = ref;

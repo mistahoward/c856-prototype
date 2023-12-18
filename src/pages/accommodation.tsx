@@ -16,10 +16,7 @@ const AccommodationPage: FC<PageProps> = ({ location }) => {
 		(ta) => ta.id.toString() === requestedAccommodationId
 	);
 	const accommodationExists = !!accommodation;
-	if (!accommodationExists) {
-		navigate('/404');
-		return null;
-	}
+	if (!accommodationExists) return null;
 
 	const accommodationTitles = Object.keys(accommodation.packages);
 	const accommodationCards = Object.values(accommodation.packages).map((ap, index) => (
