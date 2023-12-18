@@ -1,4 +1,6 @@
+import type { ReactNode } from 'react';
 import { SizeProp } from '@fortawesome/fontawesome-svg-core';
+
 import { Location, Ratings, Review } from '../types';
 
 export type MapContainerProps = {
@@ -20,4 +22,8 @@ export type ReviewCardProps = {
 export type RatingStarProps = {
 	rating: Ratings;
 	size?: SizeProp;
+};
+
+export type LayoutProps = {
+	children: ReactNode;
 };
