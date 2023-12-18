@@ -9,7 +9,7 @@ const tanitiDestinations: Destination[] = [
 		description:
 			"Matira Beach offers a mile of white sands and clear waters, ideal for swimming, snorkeling, and experiencing Taniti's beauty.",
 		coordinates: { lat: -16.5436, lng: -151.7385 },
-		image: '/static/pictures/matira_beach.jpg',
+		image: '/images/matira_beach.jpg',
 	},
 	{
 		id: 2,
@@ -19,7 +19,7 @@ const tanitiDestinations: Destination[] = [
 		description:
 			'Mount Otemanu, a mystical extinct volcano, offers hiking trails and panoramic views, rich in natural and cultural significance.',
 		coordinates: { lat: -16.5142, lng: -151.7731 },
-		image: '/static/pictures/mount_otemanu.jpg',
+		image: '/images/mount_otemanu.jpg',
 	},
 	{
 		id: 3,
@@ -29,7 +29,7 @@ const tanitiDestinations: Destination[] = [
 		description:
 			"The Coral Gardens, a snorkeling paradise, feature a rich marine life amidst vibrant coral formations in Taniti's barrier reef.",
 		coordinates: { lat: -16.532, lng: -151.73 },
-		image: '/static/pictures/coral_gardens.jpg',
+		image: '/images/coral_gardens.jpg',
 	},
 ];
 

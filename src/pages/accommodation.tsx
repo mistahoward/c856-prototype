@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { HeadFC, PageProps, navigate } from 'gatsby';
+import { HeadFC, PageProps } from 'gatsby';
 import {
 	Card, Col, Container, Row
 } from 'react-bootstrap';

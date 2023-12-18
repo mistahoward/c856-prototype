@@ -4,7 +4,7 @@ import { Row, Col, Button } from 'react-bootstrap';
 import {
 	MapContainer as LeafletMapContainer, Marker, Popup, TileLayer
 } from 'react-leaflet';
-import { navigate } from 'gatsby';
+import { navigate, withPrefix } from 'gatsby';
 
 import type { MapContainerProps } from './types';
 import MarkersList from './marker-list';
@@ -50,7 +50,7 @@ const MapContainer = ({ locations, type }: MapContainerProps) => {
 										className="w-100"
 										variant="primary"
 										onClick={() => {
-											navigate(`/${type}/?${marker.id}`);
+											navigate(withPrefix(`/${type}/?${marker.id}`));
 										}}
 									>
 										See More

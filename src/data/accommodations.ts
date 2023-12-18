@@ -20,7 +20,7 @@ const tanitiAccommodations: Accommodation[] = [
 				info: 'Offers a cozy beachside room with beautiful views and access to recreational activities.'
 			}
 		},
-		image: '/static/pictures/lagoon_paradise.jpg',
+		image: '/images/lagoon_paradise.jpg',
 	},
 	{
 		id: 2,
@@ -41,7 +41,7 @@ const tanitiAccommodations: Accommodation[] = [
 				info: 'A standard room with essential amenities, perfect for budget-conscious travelers.'
 			}
 		},
-		image: '/static/pictures/blue_lagoon.jpg',
+		image: '/images/blue_lagoon.jpg',
 	},
 	{
 		id: 3,
@@ -62,7 +62,7 @@ const tanitiAccommodations: Accommodation[] = [
 				info: 'A comfortable bungalow with easy beach access and free kayak rentals.'
 			}
 		},
-		image: '/static/pictures/sunset_beach.jpg',
+		image: '/images/sunset_beach.jpg',
 	}
 ];
 

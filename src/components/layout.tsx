@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import {
 	Button, Card, Col, Form, Nav, Navbar, Overlay, OverlayTrigger, Popover, Row
 } from 'react-bootstrap';
-import { useStaticQuery, graphql, navigate } from 'gatsby';
+import { useStaticQuery, graphql, navigate, withPrefix } from 'gatsby';
 import { startCase } from 'lodash';
 
 import Fuse from 'fuse.js';
@@ -81,7 +81,7 @@ const Layout = ({ children }: LayoutProps) => {
 	const fuse = useCallback(() => new Fuse(normalizedData, { keys: ['title'] }), [dataNormalizer]);
 	const results = fuse().search(search);
 	const resultsList = results.map((result) => (
-		<Card className="nav-card mb-1" onClick={() => navigate(result.item.link)}>
+		<Card className="nav-card mb-1" onClick={() => navigate(withPrefix(result.item.link))}>
 			<Card.Body>
 				<Card.Title>{result.item.title}</Card.Title>
 				<Card.Text>{result.item.description}</Card.Text>
