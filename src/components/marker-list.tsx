@@ -1,6 +1,8 @@
 import React from 'react';
 import { Card, Row } from 'react-bootstrap';
-import { MarkerListProps } from './types';
+import { StaticImage } from 'gatsby-plugin-image';
+
+import type { MarkerListProps } from './types';
 
 const MarkersList = ({
 	locations, title = 'Markers', map, openPopup
@@ -17,7 +19,7 @@ const MarkersList = ({
 				}}
 			>
 				<Card>
-					<Card.Img variant="top" width={300} height={225} src={marker.image} />
+					<StaticImage className="card-img-top" src={marker.image} alt={marker.title} />
 					<Card.Body>
 						<Card.Title>{marker.title}</Card.Title>
 						<Card.Text>{marker.description}</Card.Text>

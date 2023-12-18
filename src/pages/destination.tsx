@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { HeadFC, PageProps } from 'gatsby';
 import { Card, Col, Container, Row } from 'react-bootstrap';
+import { StaticImage } from 'gatsby-plugin-image';
 
 import tanitiDestinations from '../data/destinations';
 import Layout from '../components/layout';
@@ -29,7 +30,7 @@ const DestinationPage: FC<PageProps> = ({ location }) => {
 						</Row>
 					</Col>
 					<Col xs={8}>
-						<img
+						<StaticImage
 							className="img-fluid"
 							src={destination.image}
 							alt={destination.title}

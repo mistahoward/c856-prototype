@@ -5,6 +5,8 @@ import {
 } from 'react-bootstrap';
 import { startCase } from 'lodash';
 import currency from 'currency.js';
+import { StaticImage } from 'gatsby-plugin-image';
+
 import tanitiAccommodations from '../data/accommodations';
 import Layout from '../components/layout';
 
@@ -41,7 +43,7 @@ const AccommodationPage: FC<PageProps> = ({ location }) => {
 						<Row className="ms-2">{accommodationCards}</Row>
 					</Col>
 					<Col xs={8}>
-						<img
+						<StaticImage
 							className="img-fluid"
 							src={accommodation.image}
 							alt={accommodation.title}

@@ -4,7 +4,8 @@ import { Row, Col, Button } from 'react-bootstrap';
 import {
 	MapContainer as LeafletMapContainer, Marker, Popup, TileLayer
 } from 'react-leaflet';
-import { navigate, withPrefix } from 'gatsby';
+import { navigate } from 'gatsby';
+import { StaticImage } from 'gatsby-plugin-image';
 
 import type { MapContainerProps } from './types';
 import MarkersList from './marker-list';
@@ -38,7 +39,7 @@ const MapContainer = ({ locations, type }: MapContainerProps) => {
 						<Popup>
 							<Row className="mb-1">
 								<Col>
-									<img src={marker.image} width="100%" alt={marker.title} />
+									<StaticImage src={marker.image} width="100%" alt={marker.title} />
 								</Col>
 							</Row>
 							<Row className="mb-1">

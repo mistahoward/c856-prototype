@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
+import { StaticImage } from 'gatsby-plugin-image';
 
 import type { ReviewCardProps } from './types';
 
@@ -13,7 +14,7 @@ const ReviewCard = ({ review }: ReviewCardProps) => (
 			<Card.Body>
 				<Row>
 					<Col className="text-center">
-						<img className="avatar" src={review.image} alt={review.name} />
+						<StaticImage className="avatar" src={review.image} alt={review.name} />
 					</Col>
 				</Row>
 				<Row>

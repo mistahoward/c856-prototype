@@ -20,7 +20,7 @@ const tanitiAccommodations: Accommodation[] = [
 				info: 'Offers a cozy beachside room with beautiful views and access to recreational activities.'
 			}
 		},
-		image: '/c856-prototype/public/static/pictures/lagoon_paradise.jpg',
+		image: '/c856-prototype/images/lagoon_paradise.jpg',
 	},
 	{
 		id: 2,

@@ -17,7 +17,7 @@ const IndexPage: FC<PageProps> = () => {
 	const accommodationCards = accommodationsToDisplay.map((accommodation) => (
 		<Col>
 			<Card>
-				<Card.Img variant="top" src={accommodation.image} />
+				<StaticImage className="card-img-top" src={accommodation.image} alt={accommodation.title} />
 				<Card.Body>
 					<Card.Title>{accommodation.title}</Card.Title>
 					<Card.Text>{accommodation.description}</Card.Text>
@@ -30,7 +30,7 @@ const IndexPage: FC<PageProps> = () => {
 	const destinationCards = destinationsToDisplay.map((destination) => (
 		<Col>
 			<Card>
-				<Card.Img variant="top" src={destination.image} />
+				<StaticImage className="card-img-top" src={destination.image} alt={destination.title} />
 				<Card.Body>
 					<Card.Title>{destination.title}</Card.Title>
 					<Card.Text>{destination.description}</Card.Text>
