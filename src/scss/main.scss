@@ -127,3 +127,18 @@
 .average-ratings {
 	margin-top: 25vh;
 }
+
+.popover-body {
+	z-index: 1000;
+}
+
+.nav-card {
+	cursor: pointer;
+	&:hover {
+		background-color: shade-color(#fff, 20%);
+	}
+}
+
+.search-container {
+	background-color: shade-color(#fff, 5%);
+}

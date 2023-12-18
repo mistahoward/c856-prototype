@@ -1,13 +1,16 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
-	Button, Col, Form, Nav, Navbar, Row
+	Button, Card, Col, Form, Nav, Navbar, Overlay, OverlayTrigger, Popover, Row
 } from 'react-bootstrap';
-import { useStaticQuery, graphql } from 'gatsby';
+import { useStaticQuery, graphql, navigate } from 'gatsby';
+import { startCase } from 'lodash';
 
 import Fuse from 'fuse.js';
 import type { LayoutProps } from './types';
 
-const query = graphql`query {
+import '../scss/main.scss';
+
+const siteDataQuery = graphql`query {
 	allAccommodation {
 	  edges {
 		node {
@@ -46,29 +49,52 @@ const query = graphql`query {
 	}
   }`;
 
+const blackListedPages = ['accommodation', 'destination', '404'];
+
 const Layout = ({ children }: LayoutProps) => {
 	const [search, setSearch] = useState('');
-	const data = useStaticQuery(query);
+	const searchRef = useRef(null);
+
+	const data = useStaticQuery(siteDataQuery);
 	const dataNormalizer = Object.values(data)
 		.map((value) => value.edges.map((edge) => edge.node))
 		.flat();
-	const normalizedData = dataNormalizer.map((node) => {
-		if (!node?.title) {
+	const normalizedData = dataNormalizer.filter((node) => {
+		if (blackListedPages.some((page) => node.id.includes(page))) return false;
+		return node;
+	}).map((node) => {
+		const sitePageEntry = node.id.includes('SitePage');
+		if (sitePageEntry) {
 			const pageLink = node.id.replace('SitePage ', '');
-			const pageTitle = pageLink.replace('/', '');
+			const pageTitle = startCase(pageLink.replaceAll('/', ''));
 			return {
 				...node,
 				link: pageLink,
-				title: pageTitle,
+				title: `${pageTitle} Page`,
 			};
 		}
 		return {
 			...node,
 		};
 	});
-	const fuse = useCallback(() => new Fuse(dataNormalizer, { keys: ['title'] }), [dataNormalizer]);
+
+	const fuse = useCallback(() => new Fuse(normalizedData, { keys: ['title'] }), [dataNormalizer]);
 	const results = fuse().search(search);
-	console.log(normalizedData);
+	const resultsList = results.map((result) => (
+		<Card className="nav-card mb-1" onClick={() => navigate(result.item.link)}>
+			<Card.Body>
+				<Card.Title>{result.item.title}</Card.Title>
+				<Card.Text>{result.item.description}</Card.Text>
+			</Card.Body>
+		</Card>
+	));
+	const searchResults = (
+		<Popover className="search-container">
+			<Popover.Body>
+				{resultsList}
+			</Popover.Body>
+		</Popover>
+	);
 
 	return (
 		<>
@@ -90,24 +116,16 @@ const Layout = ({ children }: LayoutProps) => {
 					<Form className="me-2">
 						<Row>
 							<Col xs="auto">
+								<Overlay placement="bottom-start" target={searchRef.current} show={(!!search)}>
+									{searchResults}
+								</Overlay>
 								<Form.Control
+									ref={searchRef}
 									type="text"
 									placeholder="Search"
 									className="me-sm-2"
 									onChange={(e) => setSearch(e.target.value)}
 								/>
-							</Col>
-							<Col>
-								<Button
-									onClick={(e) => {
-										e.preventDefault();
-										console.log(results);
-									}}
-									variant="outline-secondary"
-									type="submit"
-								>
-									Submit
-								</Button>
 							</Col>
 						</Row>
 					</Form>

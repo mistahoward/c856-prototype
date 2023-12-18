@@ -32,7 +32,7 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
 				mediaType: `text/html`,
 				contentDigest: createContentDigest(accommodation),
 			},
-			link: `/accommodations/${accommodation.id}`,
+			link: `/accommodation/?${accommodation.id}`,
 		};
 
 		const node = Object.assign({}, accommodation, nodeMeta);
@@ -49,7 +49,7 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
 				mediaType: `text/html`,
 				contentDigest: createContentDigest(destination),
 			},
-			link: `/destinations/${destination.id}`,
+			link: `/destination/?${destination.id}`,
 		};
 
 		const node = Object.assign({}, destination, nodeMeta);

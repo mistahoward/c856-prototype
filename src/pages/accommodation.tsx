@@ -26,7 +26,10 @@ const AccommodationPage: FC<PageProps> = ({ location }) => {
 		<Col xs={12} className="justify-content-center mt-2">
 			<Card>
 				<Card.Body>
-					<Card.Title>{startCase(accommodationTitles[index])}</Card.Title>
+					<Card.Title>
+						{startCase(accommodationTitles[index])} 
+						&nbsp;Package
+					</Card.Title>
 					<Card.Text>{ap.info}</Card.Text>
 					<Card.Text className="text-muted">{currency(ap.price).format()}</Card.Text>
 				</Card.Body>
