@@ -19,7 +19,7 @@ const AboutPage = () => (
 						and agriculture, Taniti has flourished into a haven for explorers and
 						foodies alike, boasting a variety of local and international cuisines.
 						Accommodations range from cozy bed and breakfasts to luxurious resorts,
-						ensuring comfort for every traveler. Whether you&apos;e here to soak up the
+						ensuring comfort for every traveler. Whether you&apos;re here to soak up the
 						sun on sandy shores, delve into the lush wilderness, or immerse yourself in
 						local life, Taniti promises an escape that&apos;s as enchanting as it is
 						unforgettable.
