@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 import {
-	Button, Card, Col, Form, Nav, Navbar, Overlay, OverlayTrigger, Popover, Row
+	Card, Col, Form, Nav, Navbar, Overlay, Popover, Row
 } from 'react-bootstrap';
 import { useStaticQuery, graphql, navigate, withPrefix } from 'gatsby';
 import { startCase } from 'lodash';
@@ -81,7 +81,7 @@ const Layout = ({ children }: LayoutProps) => {
 	const fuse = useCallback(() => new Fuse(normalizedData, { keys: ['title'] }), [dataNormalizer]);
 	const results = fuse().search(search);
 	const resultsList = results.map((result) => (
-		<Card className="nav-card mb-1" onClick={() => navigate(withPrefix(result.item.link))}>
+		<Card className="nav-card mb-1" onClick={() => navigate(`c856-prototype/${result.item.link}`)}>
 			<Card.Body>
 				<Card.Title>{result.item.title}</Card.Title>
 				<Card.Text>{result.item.description}</Card.Text>
@@ -99,7 +99,7 @@ const Layout = ({ children }: LayoutProps) => {
 	return (
 		<>
 			<Navbar expand="lg" id="header" className="bg-body-secondary">
-				<Navbar.Brand href="/">
+				<Navbar.Brand href="/c856-prototype/">
 					<Row>
 						<Col className="ms-2">TT</Col>
 						<Col>Tropical Taniti</Col>
@@ -108,10 +108,10 @@ const Layout = ({ children }: LayoutProps) => {
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
-						<Nav.Link href="/about">About</Nav.Link>
-						<Nav.Link href="/destinations">Destinations</Nav.Link>
-						<Nav.Link href="/accommodations">Accommodations</Nav.Link>
-						<Nav.Link href="/reviews">Reviews</Nav.Link>
+						<Nav.Link href="/c856-prototype/about">About</Nav.Link>
+						<Nav.Link href="/c856-prototype/destinations">Destinations</Nav.Link>
+						<Nav.Link href="/c856-prototype/accommodations">Accommodations</Nav.Link>
+						<Nav.Link href="/c856-prototype/reviews">Reviews</Nav.Link>
 					</Nav>
 					<Form className="me-2">
 						<Row>

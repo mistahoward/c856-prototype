@@ -21,7 +21,7 @@ const IndexPage: FC<PageProps> = () => {
 				<Card.Body>
 					<Card.Title>{accommodation.title}</Card.Title>
 					<Card.Text>{accommodation.description}</Card.Text>
-					<Button variant="primary" href={`/accommodation/?${accommodation.id}`}>Read More</Button>
+					<Button variant="primary" href={`/c856-prototype/accommodation/?${accommodation.id}`}>Read More</Button>
 				</Card.Body>
 			</Card>
 		</Col>
@@ -34,7 +34,7 @@ const IndexPage: FC<PageProps> = () => {
 				<Card.Body>
 					<Card.Title>{destination.title}</Card.Title>
 					<Card.Text>{destination.description}</Card.Text>
-					<Button href={`destination/?${destination.id}`} variant="primary">Read More</Button>
+					<Button href={`/c856-prototype/destination/?${destination.id}`} variant="primary">Read More</Button>
 				</Card.Body>
 			</Card>
 		</Col>
@@ -142,7 +142,7 @@ const IndexPage: FC<PageProps> = () => {
 								Explore the enchantment of Taniti: Discover traveler reviews and
 								experiences in this Pacific paradise.
 							</Card.Text>
-							<Button href="/reviews" variant="primary">
+							<Button href="/c856-prototype/reviews" variant="primary">
 								View Reviews
 							</Button>
 						</Card.Body>

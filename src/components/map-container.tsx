@@ -50,7 +50,7 @@ const MapContainer = ({ locations, type }: MapContainerProps) => {
 										className="w-100"
 										variant="primary"
 										onClick={() => {
-											navigate(withPrefix(`/${type}/?${marker.id}`));
+											navigate(`/c856-prototype/${type}/?${marker.id}`);
 										}}
 									>
 										See More
