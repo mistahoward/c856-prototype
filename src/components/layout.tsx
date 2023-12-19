@@ -2,7 +2,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import {
 	Card, Col, Form, Nav, Navbar, Overlay, Popover, Row
 } from 'react-bootstrap';
-import { useStaticQuery, graphql, navigate, withPrefix } from 'gatsby';
+import { useStaticQuery, graphql, navigate } from 'gatsby';
 import { startCase } from 'lodash';
 
 import Fuse from 'fuse.js';
@@ -99,7 +99,7 @@ const Layout = ({ children }: LayoutProps) => {
 	return (
 		<>
 			<Navbar expand="lg" id="header" className="bg-body-secondary">
-				<Navbar.Brand href="/c856-prototype/">
+				<Navbar.Brand href="/">
 					<Row>
 						<Col className="ms-2">TT</Col>
 						<Col>Tropical Taniti</Col>
@@ -108,10 +108,10 @@ const Layout = ({ children }: LayoutProps) => {
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
-						<Nav.Link href="/c856-prototype/about">About</Nav.Link>
-						<Nav.Link href="/c856-prototype/destinations">Destinations</Nav.Link>
-						<Nav.Link href="/c856-prototype/accommodations">Accommodations</Nav.Link>
-						<Nav.Link href="/c856-prototype/reviews">Reviews</Nav.Link>
+						<Nav.Link href="/about">About</Nav.Link>
+						<Nav.Link href="/destinations">Destinations</Nav.Link>
+						<Nav.Link href="/accommodations">Accommodations</Nav.Link>
+						<Nav.Link href="/reviews">Reviews</Nav.Link>
 					</Nav>
 					<Form className="me-2">
 						<Row>

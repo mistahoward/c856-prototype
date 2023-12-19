@@ -11,14 +11,14 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
 			parent: null,
 			children: [],
 			internal: {
-				type: `Review`,
-				mediaType: `text/html`,
+				type: 'Review',
+				mediaType: 'text/html',
 				contentDigest: createContentDigest(review),
 			},
 			link: '/reviews'
 		};
 
-		const node = Object.assign({}, review, nodeMeta);
+		const node = { ...review, ...nodeMeta };
 		createNode(node);
 	});
 
@@ -28,14 +28,14 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
 			parent: null,
 			children: [],
 			internal: {
-				type: `Accommodation`,
-				mediaType: `text/html`,
+				type: 'Accommodation',
+				mediaType: 'text/html',
 				contentDigest: createContentDigest(accommodation),
 			},
 			link: `/accommodation/?${accommodation.id}`,
 		};
 
-		const node = Object.assign({}, accommodation, nodeMeta);
+		const node = { ...accommodation, ...nodeMeta };
 		createNode(node);
 	});
 
@@ -45,14 +45,14 @@ exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
 			parent: null,
 			children: [],
 			internal: {
-				type: `Destination`,
-				mediaType: `text/html`,
+				type: 'Destination',
+				mediaType: 'text/html',
 				contentDigest: createContentDigest(destination),
 			},
 			link: `/destination/?${destination.id}`,
 		};
 
-		const node = Object.assign({}, destination, nodeMeta);
+		const node = { ...destination, ...nodeMeta };
 		createNode(node);
 	});
 };

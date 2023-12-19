@@ -2,8 +2,7 @@ import React from 'react';
 import {
 	Card, Col, Container, Row
 } from 'react-bootstrap';
-import { HeadFC } from 'gatsby';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { HeadFC, graphql, useStaticQuery } from 'gatsby';
 import tanitiReviews from '../data/reviews';
 import Layout from '../components/layout';
 
@@ -12,7 +11,26 @@ import ReviewCard from '../components/review-card';
 import RatingStars from '../components/rating-star';
 
 const ReviewPage = () => {
-	const reviewCards = tanitiReviews.map((review) => <ReviewCard review={review} />);
+	const imageData = useStaticQuery(graphql`
+		query {
+			allFile(filter: { sourceInstanceName: { eq: "images" } }) {
+				edges {
+					node {
+						childImageSharp {
+							gatsbyImageData(layout: FULL_WIDTH)
+						}
+						relativePath
+					}
+				}
+			}
+		}
+	`);
+	const reviewCards = tanitiReviews.map((review) => {
+		const image = imageData.allFile.edges.find(
+			(edge: { node: { relativePath: string; }; }) => edge.node.relativePath === review.image
+		)?.node.childImageSharp.gatsbyImageData;
+		return (<ReviewCard review={review} gatsbyImage={image} />)
+	});
 	return (
 		<Container id="root" fluid>
 			<Layout>

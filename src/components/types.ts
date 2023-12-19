@@ -2,6 +2,7 @@ import type { ReactNode } from 'react';
 import { SizeProp } from '@fortawesome/fontawesome-svg-core';
 
 import { Location, Ratings, Review } from '../types';
+import { IGatsbyImageData } from 'gatsby-plugin-image';
 
 export type MapContainerProps = {
 	locations: Location[];
@@ -17,6 +18,7 @@ export type MarkerListProps = {
 
 export type ReviewCardProps = {
 	review: Review;
+	gatsbyImage: IGatsbyImageData;
 };
 
 export type RatingStarProps = {

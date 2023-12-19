@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Col, Row } from 'react-bootstrap';
-import { StaticImage } from 'gatsby-plugin-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 import type { ReviewCardProps } from './types';
 
@@ -8,13 +8,13 @@ import '../scss/main.scss';
 import RatingStars from './rating-star';
 import { epochToReadableDate } from '../data/reviews';
 
-const ReviewCard = ({ review }: ReviewCardProps) => (
+const ReviewCard = ({ review, gatsbyImage }: ReviewCardProps) => (
 	<Col xs={6}>
 		<Card className="mt-2">
 			<Card.Body>
 				<Row>
 					<Col className="text-center">
-						<StaticImage className="avatar" src={review.image} alt={review.name} />
+						<GatsbyImage imgClassName="avatar" image={gatsbyImage} alt={review.name} />
 					</Col>
 				</Row>
 				<Row>

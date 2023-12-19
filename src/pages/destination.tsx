@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import { HeadFC, PageProps } from 'gatsby';
+import { HeadFC, PageProps, graphql, useStaticQuery } from 'gatsby';
 import { Card, Col, Container, Row } from 'react-bootstrap';
-import { StaticImage } from 'gatsby-plugin-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 import tanitiDestinations from '../data/destinations';
 import Layout from '../components/layout';
@@ -15,6 +15,23 @@ const DestinationPage: FC<PageProps> = ({ location }) => {
 	);
 	const destinationExists = !!destination;
 	if (!destinationExists) return null;
+	const imageData = useStaticQuery(graphql`
+		query {
+			allFile(filter: { sourceInstanceName: { eq: "images" } }) {
+				edges {
+					node {
+						childImageSharp {
+							gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
+						}
+						relativePath
+					}
+				}
+			}
+		}
+	`);
+	const image = imageData.allFile.edges.find(
+		(edge: { node: { relativePath: string; }; }) => edge.node.relativePath === destination.image
+	)?.node.childImageSharp.gatsbyImageData;
 	return (
 		<Container fluid id="root">
 			<Layout>
@@ -30,9 +47,9 @@ const DestinationPage: FC<PageProps> = ({ location }) => {
 						</Row>
 					</Col>
 					<Col xs={8}>
-						<StaticImage
+						<GatsbyImage
 							className="img-fluid"
-							src={destination.image}
+							image={image}
 							alt={destination.title}
 						/>
 					</Col>

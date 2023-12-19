@@ -1,11 +1,11 @@
 import React, { FC } from 'react';
-import { HeadFC, PageProps } from 'gatsby';
+import { HeadFC, PageProps, graphql, useStaticQuery } from 'gatsby';
 import {
 	Card, Col, Container, Row
 } from 'react-bootstrap';
 import { startCase } from 'lodash';
 import currency from 'currency.js';
-import { StaticImage } from 'gatsby-plugin-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 
 import tanitiAccommodations from '../data/accommodations';
 import Layout from '../components/layout';
@@ -19,6 +19,23 @@ const AccommodationPage: FC<PageProps> = ({ location }) => {
 	);
 	const accommodationExists = !!accommodation;
 	if (!accommodationExists) return null;
+	const imageData = useStaticQuery(graphql`
+		query {
+			allFile(filter: { sourceInstanceName: { eq: "images" } }) {
+				edges {
+					node {
+						childImageSharp {
+							gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
+						}
+						relativePath
+					}
+				}
+			}
+		}
+	`);
+	const image = imageData.allFile.edges.find(
+		(edge: { node: { relativePath: string; }; }) => edge.node.relativePath === accommodation.image
+	)?.node.childImageSharp.gatsbyImageData;
 
 	const accommodationTitles = Object.keys(accommodation.packages);
 	const accommodationCards = Object.values(accommodation.packages).map((ap, index) => (
@@ -26,7 +43,7 @@ const AccommodationPage: FC<PageProps> = ({ location }) => {
 			<Card>
 				<Card.Body>
 					<Card.Title>
-						{startCase(accommodationTitles[index])} 
+						{startCase(accommodationTitles[index])}
 						&nbsp;Package
 					</Card.Title>
 					<Card.Text>{ap.info}</Card.Text>
@@ -43,9 +60,9 @@ const AccommodationPage: FC<PageProps> = ({ location }) => {
 						<Row className="ms-2">{accommodationCards}</Row>
 					</Col>
 					<Col xs={8}>
-						<StaticImage
-							className="img-fluid"
-							src={accommodation.image}
+						<GatsbyImage
+							imgClassName="img-fluid"
+							image={image}
 							alt={accommodation.title}
 						/>
 					</Col>

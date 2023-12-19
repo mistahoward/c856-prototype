@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
-import type { HeadFC, PageProps } from 'gatsby';
+import { useStaticQuery, type HeadFC, type PageProps, graphql } from 'gatsby';
 import { Container, Carousel, Card, Button, Row, Col } from 'react-bootstrap';
-import { StaticImage } from 'gatsby-plugin-image';
+import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 
 import Layout from '../components/layout';
 
@@ -14,31 +14,68 @@ const IndexPage: FC<PageProps> = () => {
 	const accommodationsToDisplay = tanitiAccommodations.slice(0, 3);
 	const destinationsToDisplay = tanitiDestinations.slice(0, 3);
 
-	const accommodationCards = accommodationsToDisplay.map((accommodation) => (
-		<Col>
-			<Card>
-				<StaticImage className="card-img-top" src={accommodation.image} alt={accommodation.title} />
-				<Card.Body>
-					<Card.Title>{accommodation.title}</Card.Title>
-					<Card.Text>{accommodation.description}</Card.Text>
-					<Button variant="primary" href={`/c856-prototype/accommodation/?${accommodation.id}`}>Read More</Button>
-				</Card.Body>
-			</Card>
-		</Col>
-	));
+	const imageData = useStaticQuery(graphql`
+		query {
+			allFile(filter: { sourceInstanceName: { eq: "images" } }) {
+				edges {
+					node {
+						childImageSharp {
+							gatsbyImageData(width: 400, layout: CONSTRAINED)
+						}
+						relativePath
+					}
+				}
+			}
+		}
+	`);
 
-	const destinationCards = destinationsToDisplay.map((destination) => (
-		<Col>
-			<Card>
-				<StaticImage className="card-img-top" src={destination.image} alt={destination.title} />
-				<Card.Body>
-					<Card.Title>{destination.title}</Card.Title>
-					<Card.Text>{destination.description}</Card.Text>
-					<Button href={`/c856-prototype/destination/?${destination.id}`} variant="primary">Read More</Button>
-				</Card.Body>
-			</Card>
-		</Col>
-	));
+	const accommodationCards = accommodationsToDisplay.map((accommodation) => {
+		const image = imageData.allFile.edges.find(
+			(edge: { node: { relativePath: string } }) =>
+				edge.node.relativePath === accommodation.image
+		)?.node.childImageSharp.gatsbyImageData;
+		return (
+			<Col>
+				<Card>
+					<GatsbyImage className="card-img-top" image={image} alt={accommodation.title} />
+					<Card.Body>
+						<Card.Title>{accommodation.title}</Card.Title>
+						<Card.Text>{accommodation.description}</Card.Text>
+						<Button
+							variant="primary"
+							href={`/c856-prototype/accommodation/?${accommodation.id}`}
+						>
+							Read More
+						</Button>
+					</Card.Body>
+				</Card>
+			</Col>
+		);
+	});
+
+	const destinationCards = destinationsToDisplay.map((destination) => {
+		const image = imageData.allFile.edges.find(
+			(edge: { node: { relativePath: string } }) =>
+				edge.node.relativePath === destination.image
+		)?.node.childImageSharp.gatsbyImageData;
+		return (
+			<Col>
+				<Card>
+					<GatsbyImage className="card-img-top" image={image} alt={destination.title} />
+					<Card.Body>
+						<Card.Title>{destination.title}</Card.Title>
+						<Card.Text>{destination.description}</Card.Text>
+						<Button
+							href={`/c856-prototype/destination/?${destination.id}`}
+							variant="primary"
+						>
+							Read More
+						</Button>
+					</Card.Body>
+				</Card>
+			</Col>
+		);
+	});
 
 	return (
 		<Container fluid id="root">
@@ -111,7 +148,7 @@ const IndexPage: FC<PageProps> = () => {
 								adventure and serenity with its tropical rainforests, beaches, a
 								volcano, and a rich cultural heritage.
 							</Card.Text>
-							<Button variant="primary">Read more</Button>
+							<Button variant="primary" href="/c856-prototype/about">Read more</Button>
 						</Card.Body>
 					</Card>
 					<StaticImage src="../images/lady_1.jpg" alt="Lady on a Beach holding a drink" />
@@ -130,9 +167,7 @@ const IndexPage: FC<PageProps> = () => {
 					<Row>
 						<h1 className="display-4">Destinations</h1>
 					</Row>
-					<Row>
-						{destinationCards}
-					</Row>
+					<Row>{destinationCards}</Row>
 				</Container>
 				<div className="image-card-container">
 					<Card>
