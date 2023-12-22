@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useStaticQuery, type HeadFC, type PageProps, graphql } from 'gatsby';
+import { useStaticQuery, type HeadFC, type PageProps, graphql, withPrefix } from 'gatsby';
 import { Container, Carousel, Card, Button, Row, Col } from 'react-bootstrap';
 import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 
@@ -43,7 +43,7 @@ const IndexPage: FC<PageProps> = () => {
 						<Card.Text>{accommodation.description}</Card.Text>
 						<Button
 							variant="primary"
-							href={`/c856-prototype/accommodation/?${accommodation.id}`}
+							href={withPrefix(`accommodation/?${accommodation.id}`)}
 						>
 							Read More
 						</Button>
@@ -66,7 +66,7 @@ const IndexPage: FC<PageProps> = () => {
 						<Card.Title>{destination.title}</Card.Title>
 						<Card.Text>{destination.description}</Card.Text>
 						<Button
-							href={`/c856-prototype/destination/?${destination.id}`}
+							href={withPrefix(`/destination/?${destination.id}`)}
 							variant="primary"
 						>
 							Read More
@@ -148,7 +148,7 @@ const IndexPage: FC<PageProps> = () => {
 								adventure and serenity with its tropical rainforests, beaches, a
 								volcano, and a rich cultural heritage.
 							</Card.Text>
-							<Button variant="primary" href="/c856-prototype/about">Read more</Button>
+							<Button variant="primary" href={withPrefix('/about')}>Read more</Button>
 						</Card.Body>
 					</Card>
 					<StaticImage src="../images/lady_1.jpg" alt="Lady on a Beach holding a drink" />
@@ -177,7 +177,7 @@ const IndexPage: FC<PageProps> = () => {
 								Explore the enchantment of Taniti: Discover traveler reviews and
 								experiences in this Pacific paradise.
 							</Card.Text>
-							<Button href="/c856-prototype/reviews" variant="primary">
+							<Button href={withPrefix('/about')} variant="primary">
 								View Reviews
 							</Button>
 						</Card.Body>
