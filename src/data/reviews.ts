@@ -1,3 +1,4 @@
+import { withPrefix } from 'gatsby';
 import type { Review } from '../types';
 
 export const epochToReadableDate = (epoch: EpochTimeStamp) => {
@@ -15,7 +16,7 @@ const tanitiReviews: Review[] = [
 		age: 32,
 		review: 'An absolutely breathtaking experience! The scenic beauty was unparalleled, and the local cuisine was delightful. Would definitely recommend to anyone looking for an adventure.',
 		rating: 5,
-		image: 'john_doe.jpg',
+		image:  withPrefix('john_doe.jpg'),
 		date: 1673036400000,
 	},
 	{
@@ -23,7 +24,7 @@ const tanitiReviews: Review[] = [
 		age: 28,
 		review: "A truly magical place. The sunsets are incredible, and the people are so welcoming. The only downside was the humidity, but it's a small price to pay for such beauty.",
 		rating: 4.5,
-		image: 'emily_smith.jpg',
+		image: withPrefix('emily_smith.jpg'),
 		date: 1675628400000,
 	},
 	{
@@ -31,7 +32,7 @@ const tanitiReviews: Review[] = [
 		age: 45,
 		review: "The perfect getaway for our anniversary. The island's charm and the luxurious resort made our stay unforgettable. The guided tours were informative and engaging.",
 		rating: 5,
-		image: 'carlos_rodriguez.jpg',
+		image: withPrefix('carlos_rodriguez.jpg'),
 		date: 1681302000000,
 	},
 	{
@@ -39,7 +40,7 @@ const tanitiReviews: Review[] = [
 		age: 30,
 		review: "As an avid traveler, I've seen many places, but this island stole my heart. The lush forests and pristine beaches are a nature lover's dream. However, the nightlife was a bit lacking.",
 		rating: 4,
-		image: 'aisha_khan.jpg',
+		image: withPrefix('aisha_khan.jpg'),
 		date: 1683894000000,
 	},
 ];
