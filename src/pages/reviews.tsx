@@ -29,7 +29,7 @@ const ReviewPage = () => {
 		const image = imageData.allFile.edges.find(
 			(edge: { node: { relativePath: string; }; }) => edge.node.relativePath === review.image
 		)?.node.childImageSharp.gatsbyImageData;
-		return (<ReviewCard review={review} gatsbyImage={image} />)
+		return (<ReviewCard key={review.name + review.date} review={review} gatsbyImage={image} />)
 	});
 	return (
 		<Container id="root" fluid>

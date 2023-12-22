@@ -9,8 +9,8 @@ import RatingStars from './rating-star';
 import { epochToReadableDate } from '../data/reviews';
 
 const ReviewCard = ({ review, gatsbyImage }: ReviewCardProps) => (
-	<Col xs={6}>
-		<Card className="mt-2">
+	<Col xs={6} className="mb-2">
+		<Card className="mt-2 h-100">
 			<Card.Body>
 				<Row>
 					<Col className="text-center">
