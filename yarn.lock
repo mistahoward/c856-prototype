@@ -223,7 +223,7 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.27.7.tgz#7fd698e531050cce432b073ab64857b99e0f3804"
   integrity sha512-xgu/ySj2mTiUFmdE9yCMfBxLp4DHd5DwmbbD05YAuICfodYT3VvRxbrh81LGQ/8UpSdtMdfKMn3KouYDX59DGQ==
 
-"@babel/core@^7.14.0", "@babel/core@^7.20.12":
+"@babel/core@^7.14.0", "@babel/core@^7.20.12", "@babel/core@^7.27.7":
   version "7.27.7"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.27.7.tgz#0ddeab1e7b17317dad8c3c3a887716f66b5c4428"
   integrity sha512-BU2f9tlKQ5CAthiMIgpzAh4eDTLWo1mqi9jqE2OxMG0E/OM199VJt2q8BztTxpnSW0i1ymdwLXRJnYzvDM5r2w==
@@ -7170,7 +7170,7 @@ graphql-type-json@0.3.2:
   resolved "https://registry.yarnpkg.com/graphql-type-json/-/graphql-type-json-0.3.2.tgz#f53a851dbfe07bd1c8157d24150064baab41e115"
   integrity sha512-J+vjof74oMlCWXSvt0DOf2APEdZOCdubEvGDUAlqH//VBYcOYsGgRW7Xzorr44LvkjiuvecWc8fChxuZZbChtg==
 
-graphql@^16.7.1:
+graphql@^16.11.0, graphql@^16.7.1:
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/graphql/-/graphql-16.11.0.tgz#96d17f66370678027fdf59b2d4c20b4efaa8a633"
   integrity sha512-mS1lbMsxgQj6hge1XZ6p7GPhbrtFwUFYi3wRzXAC/FmYnyXMTvvI3td3rjmQ2u8ewXueaSvRPWaEcgVVOT9Jnw==
@@ -8032,10 +8032,10 @@ latest-version@^7.0.0:
   dependencies:
     package-json "^8.1.0"
 
-leaflet@^1.9.3:
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.9.4.tgz#23fae724e282fa25745aff82ca4d394748db7d8d"
-  integrity sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA==
+leaflet@1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.9.3.tgz#52ec436954964e2d3d39e0d433da4b2500d74414"
+  integrity sha512-iB2cR9vAkDOu5l3HAay2obcUHZ7xwUBBjph8+PGtmW/2lYhbLizWtG7nTeYht36WfOslixQF9D/uSIzhZgGMfQ==
 
 levn@^0.4.1:
   version "0.4.1"
