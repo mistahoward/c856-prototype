@@ -12,5 +12,9 @@
 	  "deploy:api": "npm run deploy --workspace=worker-backend",
 	  "deploy:frontend": "echo \"Frontend deployment is triggered by a git push to Cloudflare Pages\"",
 	  "deploy": "npm run deploy:api && git push"
+	},
+	"resolutions": {
+		"react": "18.2.0",
+		"react-dom": "18.2.0"
 	}
   }
