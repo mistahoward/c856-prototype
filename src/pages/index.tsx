@@ -5,17 +5,33 @@ import { GatsbyImage, StaticImage } from 'gatsby-plugin-image';
 
 import Layout from '../components/layout';
 
-import tanitiAccommodations from '../data/accommodations';
-import tanitiDestinations from '../data/destinations';
-
 import '../scss/main.scss';
 
 const IndexPage: FC<PageProps> = () => {
-	const accommodationsToDisplay = tanitiAccommodations.slice(0, 3);
-	const destinationsToDisplay = tanitiDestinations.slice(0, 3);
-
-	const imageData = useStaticQuery(graphql`
+	const data = useStaticQuery(graphql`
 		query {
+			allAccommodationDirect {
+				edges {
+					node {
+						id
+						title
+						description
+						image
+						link
+					}
+				}
+			}
+			allDestinationDirect {
+				edges {
+					node {
+						id
+						title
+						description
+						image
+						link
+					}
+				}
+			}
 			allFile(filter: { sourceInstanceName: { eq: "images" } }) {
 				edges {
 					node {
@@ -29,13 +45,19 @@ const IndexPage: FC<PageProps> = () => {
 		}
 	`);
 
-	const accommodationCards = accommodationsToDisplay.map((accommodation) => {
-		const image = imageData.allFile.edges.find(
+	const accommodations = data.allAccommodationDirect.edges.map((edge: any) => edge.node);
+	const destinations = data.allDestinationDirect.edges.map((edge: any) => edge.node);
+
+	const accommodationsToDisplay = accommodations.slice(0, 3);
+	const destinationsToDisplay = destinations.slice(0, 3);
+
+	const accommodationCards = accommodationsToDisplay.map((accommodation: any) => {
+		const image = data.allFile.edges.find(
 			(edge: { node: { relativePath: string } }) =>
 				edge.node.relativePath === accommodation.image
 		)?.node.childImageSharp.gatsbyImageData;
 		return (
-			<Col>
+			<Col key={accommodation.id}>
 				<Card>
 					<GatsbyImage className="card-img-top" image={image} alt={accommodation.title} />
 					<Card.Body>
@@ -53,13 +75,13 @@ const IndexPage: FC<PageProps> = () => {
 		);
 	});
 
-	const destinationCards = destinationsToDisplay.map((destination) => {
-		const image = imageData.allFile.edges.find(
+	const destinationCards = destinationsToDisplay.map((destination: any) => {
+		const image = data.allFile.edges.find(
 			(edge: { node: { relativePath: string } }) =>
 				edge.node.relativePath === destination.image
 		)?.node.childImageSharp.gatsbyImageData;
 		return (
-			<Col>
+			<Col key={destination.id}>
 				<Card>
 					<GatsbyImage className="card-img-top" image={image} alt={destination.title} />
 					<Card.Body>

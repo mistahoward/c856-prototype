@@ -7,20 +7,32 @@ import { startCase } from 'lodash';
 import currency from 'currency.js';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
-import tanitiAccommodations from '../data/accommodations';
 import Layout from '../components/layout';
-
 import '../scss/main.scss';
 
 const AccommodationPage: FC<PageProps> = ({ location }) => {
 	const requestedAccommodationId = location.search.replace('?', '');
-	const accommodation = tanitiAccommodations.find(
-		(ta) => ta.id.toString() === requestedAccommodationId
-	);
-	const accommodationExists = !!accommodation;
-	if (!accommodationExists) return null;
-	const imageData = useStaticQuery(graphql`
+	const data = useStaticQuery(graphql`
 		query {
+			allAccommodationDirect {
+				nodes {
+					id
+					dbId
+					title
+					description
+					image
+					link
+					coordinates {
+						lat
+						lng
+					}
+					packages {
+						expensive { price info }
+						moderate { price info }
+						cheapest { price info }
+					}
+				}
+			}
 			allFile(filter: { sourceInstanceName: { eq: "images" } }) {
 				edges {
 					node {
@@ -33,13 +45,16 @@ const AccommodationPage: FC<PageProps> = ({ location }) => {
 			}
 		}
 	`);
-	const image = imageData.allFile.edges.find(
-		(edge: { node: { relativePath: string; }; }) => edge.node.relativePath === accommodation.image
+	const accommodation = data.allAccommodationDirect.nodes.find((ta: any) => ta.dbId.toString() === requestedAccommodationId) || null;
+	if (!accommodation) return null;
+	const imageData = data.allFile;
+	const image = imageData.edges.find(
+		(edge: { node: { relativePath: string } }) => edge.node.relativePath === accommodation.image
 	)?.node.childImageSharp.gatsbyImageData;
-
-	const accommodationTitles = Object.keys(accommodation.packages);
-	const accommodationCards = Object.values(accommodation.packages).map((ap, index) => (
-		<Col xs={12} className="justify-content-center mt-2">
+	const packages = accommodation.packages;
+	const accommodationTitles = Object.keys(packages);
+	const accommodationCards = Object.values(packages).map((ap: any, index) => (
+		<Col xs={12} className="justify-content-center mt-2" key={index}>
 			<Card>
 				<Card.Body>
 					<Card.Title>

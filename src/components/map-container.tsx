@@ -70,7 +70,7 @@ const MapContainer = ({ locations, type }: MapContainerProps) => {
 											className="w-100"
 											variant="primary"
 											onClick={() => {
-												navigate(`/${type}/?${marker.id}`);
+												navigate(marker.link);
 											}}
 										>
 											See More

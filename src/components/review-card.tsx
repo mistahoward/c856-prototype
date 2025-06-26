@@ -6,7 +6,17 @@ import type { ReviewCardProps } from './types';
 
 import '../scss/main.scss';
 import RatingStars from './rating-star';
-import { epochToReadableDate } from '../data/reviews';
+
+// Moved here from deleted data file
+declare type EpochTimeStamp = number;
+const epochToReadableDate = (epoch: EpochTimeStamp) => {
+	const date = new Date(epoch);
+	return date.toLocaleDateString('en-US', {
+		month: 'long',
+		day: '2-digit',
+		year: 'numeric',
+	});
+};
 
 const ReviewCard = ({ review, gatsbyImage }: ReviewCardProps) => (
 	<Col xs={6} className="mb-2">

@@ -3,20 +3,27 @@ import { HeadFC, PageProps, graphql, useStaticQuery } from 'gatsby';
 import { Card, Col, Container, Row } from 'react-bootstrap';
 import { GatsbyImage } from 'gatsby-plugin-image';
 
-import tanitiDestinations from '../data/destinations';
 import Layout from '../components/layout';
-
 import '../scss/main.scss';
 
 const DestinationPage: FC<PageProps> = ({ location }) => {
 	const requestedDestinationId = location.search.replace('?', '');
-	const destination = tanitiDestinations.find(
-		(td) => td.id.toString() === requestedDestinationId
-	);
-	const destinationExists = !!destination;
-	if (!destinationExists) return null;
-	const imageData = useStaticQuery(graphql`
+	const data = useStaticQuery(graphql`
 		query {
+			allDestinationDirect {
+				nodes {
+					id
+					dbId
+					title
+					description
+					detailed_description
+					image
+					coordinates {
+						lat
+						lng
+					}
+				}
+			}
 			allFile(filter: { sourceInstanceName: { eq: "images" } }) {
 				edges {
 					node {
@@ -29,8 +36,11 @@ const DestinationPage: FC<PageProps> = ({ location }) => {
 			}
 		}
 	`);
-	const image = imageData.allFile.edges.find(
-		(edge: { node: { relativePath: string; }; }) => edge.node.relativePath === destination.image
+	const destination = data.allDestinationDirect.nodes.find((td: any) => td.dbId.toString() === requestedDestinationId) || null;
+	if (!destination) return null;
+	const imageData = data.allFile;
+	const image = imageData.edges.find(
+		(edge: { node: { relativePath: string } }) => edge.node.relativePath === destination.image
 	)?.node.childImageSharp.gatsbyImageData;
 	return (
 		<Container fluid id="root">

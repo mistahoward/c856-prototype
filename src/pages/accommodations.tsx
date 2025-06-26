@@ -1,20 +1,37 @@
 import React from 'react';
-import { HeadFC } from 'gatsby';
+import { HeadFC, graphql, useStaticQuery } from 'gatsby';
 import { Container } from 'react-bootstrap';
-
 import Layout from '../components/layout';
-
 import '../scss/main.scss';
-import tanitiAccommodations from '../data/accommodations';
 import MapContainer from '../components/map-container';
 
-const AccommodationsPage = () => (
-	<Container fluid id="root">
-		<Layout>
-			<MapContainer type="accommodation" locations={tanitiAccommodations} />
-		</Layout>
-	</Container>
-);
+const AccommodationsPage = () => {
+	const data = useStaticQuery(graphql`
+		query {
+			allAccommodationDirect {
+				nodes {
+					id
+					title
+					description
+					image
+					link
+					coordinates {
+						lat
+						lng
+					}
+				}
+			}
+		}
+	`);
+	const accommodations = data.allAccommodationDirect.nodes;
+	return (
+		<Container fluid id="root">
+			<Layout>
+				<MapContainer type="accommodation" locations={accommodations} />
+			</Layout>
+		</Container>
+	);
+};
 
 export default AccommodationsPage;
 

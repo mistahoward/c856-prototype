@@ -1,58 +1,171 @@
-import tanitiReviews from './src/data/reviews.ts';
-import tanitiAccommodations from './src/data/accommodations.ts';
-import tanitiDestinations from './src/data/destinations.ts';
+import type { GatsbyNode } from 'gatsby';
+import Database from 'better-sqlite3';
+import path from 'path';
+import type { Accommodation, Destination, Review } from './src/types';
 
-exports.sourceNodes = ({ actions, createNodeId, createContentDigest }) => {
-	const { createNode } = actions;
+interface DbRow {
+  id: number | string;
+  [key: string]: any;
+}
 
-	tanitiReviews.forEach((review) => {
-		const nodeMeta = {
-			id: createNodeId(`review-${review.name}`),
-			parent: null,
-			children: [],
-			internal: {
-				type: 'Review',
-				mediaType: 'text/html',
-				contentDigest: createContentDigest(review),
-			},
-			link: '/reviews'
-		};
+export const sourceNodes: GatsbyNode['sourceNodes'] = async ({
+  actions,
+  createContentDigest,
+  createNodeId,
+  reporter,
+}) => {
+  const { createNode } = actions;
+  const dbPath = path.join(__dirname, 'site.db');
+  reporter.info(`[gatsby-node] Connecting to SQLite DB at ${dbPath}`);
+  let db;
+  try {
+    db = new Database(dbPath, { readonly: true });
+  } catch (err) {
+    reporter.panic(`[gatsby-node] Failed to open DB: ${err}`);
+    return;
+  }
 
-		const node = { ...review, ...nodeMeta };
-		createNode(node);
-	});
+  const accommodationRows: DbRow[] = db.prepare('SELECT * FROM accommodations').all();
+  reporter.info(`[gatsby-node] Sourcing ${accommodationRows.length} accommodations`);
 
-	tanitiAccommodations.forEach((accommodation) => {
-		const nodeMeta = {
-			id: createNodeId(`accommodation-${accommodation.title}`),
-			parent: null,
-			children: [],
-			internal: {
-				type: 'Accommodation',
-				mediaType: 'text/html',
-				contentDigest: createContentDigest(accommodation),
-			},
-			link: `/accommodation/?${accommodation.id}`,
-		};
+  for (const row of accommodationRows) {
+    const nodeContent = {
+      title: row.title,
+      description: row.description,
+      coordinates: { lat: row.lat ?? 0, lng: row.lng ?? 0 },
+      image: row.image ?? '',
+      packages: {
+        expensive: {
+          price: row.expensive_price ?? 0,
+          info: row.expensive_info ?? '',
+        },
+        moderate: {
+          price: row.moderate_price ?? 0,
+          info: row.moderate_info ?? '',
+        },
+        cheapest: {
+          price: row.cheapest_price ?? 0,
+          info: row.cheapest_info ?? '',
+        },
+      },
+      dbId: row.id,
+      link: `/accommodation?${row.id}`,
+    };
 
-		const node = { ...accommodation, ...nodeMeta };
-		createNode(node);
-	});
+    createNode({
+      ...nodeContent,
+      id: createNodeId(`Accommodation-${row.id}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: 'AccommodationDirect',
+        contentDigest: createContentDigest(nodeContent),
+      },
+    });
+  }
 
-	tanitiDestinations.forEach((destination) => {
-		const nodeMeta = {
-			id: createNodeId(`destination-${destination.title}`),
-			parent: null,
-			children: [],
-			internal: {
-				type: 'Destination',
-				mediaType: 'text/html',
-				contentDigest: createContentDigest(destination),
-			},
-			link: `/destination/?${destination.id}`,
-		};
+  const destinationRows: DbRow[] = db.prepare('SELECT * FROM destinations').all();
+  reporter.info(`[gatsby-node] Sourcing ${destinationRows.length} destinations`);
 
-		const node = { ...destination, ...nodeMeta };
-		createNode(node);
-	});
+  for (const row of destinationRows) {
+    const nodeContent = {
+      title: row.title,
+      description: row.description,
+      detailed_description: row.detailed_description,
+      coordinates: { lat: row.lat ?? 0, lng: row.lng ?? 0 },
+      image: row.image ?? '',
+      dbId: row.id,
+      link: `/destination?${row.id}`,
+    };
+    
+    createNode({
+      ...nodeContent,
+      id: createNodeId(`Destination-${row.id}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: 'DestinationDirect',
+        contentDigest: createContentDigest(nodeContent),
+      },
+    });
+  }
+
+  const reviewRows: DbRow[] = db.prepare('SELECT * FROM reviews').all();
+  reporter.info(`[gatsby-node] Sourcing ${reviewRows.length} reviews`);
+  
+  for (const row of reviewRows) {
+    const nodeContent = {
+      name: row.name,
+      age: row.age,
+      review: row.review,
+      rating: row.rating,
+      image: row.image,
+      date: row.date,
+      dbId: row.id,
+    };
+
+    createNode({
+      ...nodeContent,
+      id: createNodeId(`Review-${row.id}`),
+      parent: null,
+      children: [],
+      internal: {
+        type: 'ReviewDirect',
+        contentDigest: createContentDigest(nodeContent),
+      },
+    });
+  }
+
+  db.close();
+};
+
+// --- Schema customization remains the same ---
+// It's good practice to explicitly define your schema.
+export const createSchemaCustomization: GatsbyNode['createSchemaCustomization'] = ({ actions }) => {
+  const { createTypes } = actions;
+  createTypes(`
+    type AccommodationDirect implements Node {
+      id: ID!
+      title: String
+      description: String
+      coordinates: Coordinates
+      image: String
+      packages: PricedPackages
+      dbId: String
+      link: String
+    }
+    type Coordinates {
+      lat: Float
+      lng: Float
+    }
+    type Package {
+      price: Int
+      info: String
+    }
+    type PricedPackages {
+      expensive: Package
+      moderate: Package
+      cheapest: Package
+    }
+    type DestinationDirect implements Node {
+      id: ID!
+      title: String
+      description: String
+      detailed_description: String
+      coordinates: Coordinates
+      image: String
+      dbId: String
+      link: String
+    }
+    type ReviewDirect implements Node {
+      id: ID!
+      name: String
+      age: Int
+      review: String
+      rating: Float
+      image: String
+      date: Float
+      dbId: String
+    }
+  `);
 };

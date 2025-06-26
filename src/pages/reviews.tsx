@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	Card, Col, Container, Row
 } from 'react-bootstrap';
 import { HeadFC, graphql, useStaticQuery } from 'gatsby';
-import tanitiReviews from '../data/reviews';
 import Layout from '../components/layout';
 
 import '../scss/main.scss';
@@ -11,8 +10,19 @@ import ReviewCard from '../components/review-card';
 import RatingStars from '../components/rating-star';
 
 const ReviewPage = () => {
-	const imageData = useStaticQuery(graphql`
+	const data = useStaticQuery(graphql`
 		query {
+			allReviewDirect {
+				nodes {
+					id
+					name
+					age
+					review
+					rating
+					image
+					date
+				}
+			}
 			allFile(filter: { sourceInstanceName: { eq: "images" } }) {
 				edges {
 					node {
@@ -25,9 +35,11 @@ const ReviewPage = () => {
 			}
 		}
 	`);
-	const reviewCards = tanitiReviews.map((review) => {
-		const image = imageData.allFile.edges.find(
-			(edge: { node: { relativePath: string; }; }) => edge.node.relativePath === review.image
+	const reviews = data.allReviewDirect.nodes;
+	const imageData = data.allFile;
+	const reviewCards = reviews.map((review: any) => {
+		const image = imageData.edges.find(
+			(edge: { node: { relativePath: string } }) => edge.node.relativePath === review.image
 		)?.node.childImageSharp.gatsbyImageData;
 		return (<ReviewCard key={review.name + review.date} review={review} gatsbyImage={image} />)
 	});

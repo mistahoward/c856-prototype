@@ -9,6 +9,7 @@ export type Location = {
 	description: string;
 	coordinates: Coordinates;
 	image: string;
+	link: string;
 };
 
 export type Package = {
