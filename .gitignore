@@ -1,5 +1,24 @@
-node_modules/
-.cache/
-public
-src/gatsby-types.d.ts
+# IDE and OS files
+.vscode/
+.DS_Store
+*.swp
+
+# top-level dependencies
+/node_modules
+
+# workspace-specific ignores
+/gatsby-frontend/node_modules
+/gatsby-frontend/.cache
+/gatsby-frontend/public
+
+/worker-backend/node_modules
+/worker-backend/.wrangler
+
+# logs & databases
+*.log
 site.db
+
+# environment variables
+.env
+.env.*
+!.env.example
