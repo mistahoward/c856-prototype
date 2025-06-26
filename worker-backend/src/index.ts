@@ -2,11 +2,15 @@ import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateCloudflareWorkersHandler } from '@as-integrations/cloudflare-workers'; 
 import { gql } from 'graphql-tag';
 
-const typeDefs = gql`type Query {
+const typeDefs = gql`
+  type Query {
     accommodations: [Accommodation]
+    accommodation(id: ID!): Accommodation
     destinations: [Destination]
+    destination(id: ID!): Destination
     reviews: [Review]
   }
+  
   type Accommodation {
     id: ID!
     title: String
@@ -55,22 +59,23 @@ const resolvers = {
       }));
     },
     accommodation: async (parent, { id }, context) => {
-      // Find a single row in the database where the ID matches
       const result = await context.DB.prepare('SELECT * FROM accommodations WHERE id = ?')
         .bind(id)
         .first();
     
-      if (!result) 
-        return null;
-      
+      if (!result) return null;
+    
       return {
-        ...result,
+        id: result.id,
+        title: result.title,
+        description: result.description,
+        coordinates: { lat: result.lat, lng: result.lng },
+        image: result.image,
         packages: {
           expensive: { price: result.expensive_price, info: result.expensive_info },
           moderate: { price: result.moderate_price, info: result.moderate_info },
           cheapest: { price: result.cheapest_price, info: result.cheapest_info },
         },
-        coordinates: { lat: result.lat, lng: result.lng },
       };
     },
     destinations: async (_, _2, context) => {
@@ -98,10 +103,14 @@ const server = new ApolloServer({
   resolvers,
 });
 
-export default startServerAndCreateCloudflareWorkersHandler(server, {
+const handler = startServerAndCreateCloudflareWorkersHandler(server, {
     context: async ({ env }: { env: any }) => {
         return {
             DB: env.DB,
         };
     },
 });
+
+export default {
+    fetch: handler,
+};

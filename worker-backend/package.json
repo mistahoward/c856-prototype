@@ -14,7 +14,7 @@
 		"eslint-config-airbnb-base": "^15.0.0",
 		"eslint-plugin-import": "^2.25.2",
 		"typescript": "^5.8.3",
-		"wrangler": "^3.0.0"
+		"wrangler": "^4.22.0"
 	},
 	"dependencies": {
 		"@apollo/server": "^4.12.2",

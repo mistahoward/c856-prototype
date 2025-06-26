@@ -10,11 +10,10 @@
   "scripts": {
     "dev": "gatsby develop",
     "start": "gatsby develop",
-    "build": "gatsby build --prefix-paths",
-    "serve": "gatsby serve --prefix-paths",
-    "clean": "gatsby clean && del site.db || rm -f site.db",
-    "typecheck": "tsc --noEmit",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public -b gh-pages"
+    "build": "gatsby build",
+    "serve": "gatsby serve",
+    "clean": "gatsby clean",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@apollo/client": "^3.13.8",
