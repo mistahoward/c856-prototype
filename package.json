@@ -7,14 +7,11 @@
 	  "worker-backend"
 	],
 	"scripts": {
-	  "dev:api": "npm run dev --workspace=worker-backend",
-	  "dev:frontend": "npm run dev --workspace=gatsby-frontend",
-	  "deploy:api": "npm run deploy --workspace=worker-backend",
+	  "dev:api": "yarn workspace worker-backend dev",
+	  "dev:frontend": "yarn workspace gatsby-frontend dev",
+	  "deploy:api": "yarn workspace worker-backend deploy",
 	  "deploy:frontend": "echo \"Frontend deployment is triggered by a git push to Cloudflare Pages\"",
-	  "deploy": "npm run deploy:api && git push"
-	},
-	"resolutions": {
-		"react": "18.2.0",
-		"react-dom": "18.2.0"
+	  "deploy": "yarn deploy:api && git push"
 	}
   }
+  
