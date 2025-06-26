@@ -8,17 +8,16 @@
     "gatsby"
   ],
   "scripts": {
-    "predev": "npx ts-node scripts/ensure-db.ts",
     "dev": "gatsby develop",
     "start": "gatsby develop",
     "build": "gatsby build --prefix-paths",
     "serve": "gatsby serve --prefix-paths",
     "clean": "gatsby clean && del site.db || rm -f site.db",
     "typecheck": "tsc --noEmit",
-    "deploy": "gatsby build --prefix-paths && gh-pages -d public -b gh-pages",
-    "seed:db": "ts-node scripts/seed-db.ts"
+    "deploy": "gatsby build --prefix-paths && gh-pages -d public -b gh-pages"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.8",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",

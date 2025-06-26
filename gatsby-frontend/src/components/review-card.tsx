@@ -7,7 +7,6 @@ import type { ReviewCardProps } from './types';
 import '../scss/main.scss';
 import RatingStars from './rating-star';
 
-// Moved here from deleted data file
 declare type EpochTimeStamp = number;
 const epochToReadableDate = (epoch: EpochTimeStamp) => {
 	const date = new Date(epoch);

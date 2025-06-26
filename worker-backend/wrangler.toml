@@ -1,3 +1,8 @@
 name = "c856-api"
 compatibility_date = "2024-06-26"
 main = "src/index.ts"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "c856-database"
+database_id = "a59a6c0e-cc34-4c29-b287-a7fac886ed82"
