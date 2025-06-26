@@ -1,0 +1,6 @@
+{
+	"name": "taniti-gatsby",
+	"compatibility_date": "2025-06-26",
+	"compatibility_flags": ["nodejs_compat"],
+	"main": "src/pages/index.tsx"
+}
