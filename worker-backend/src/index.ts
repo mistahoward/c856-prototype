@@ -103,6 +103,12 @@ const server = new ApolloServer({
   resolvers,
 });
 
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+  'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+};
+
 const handler = startServerAndCreateCloudflareWorkersHandler(server, {
     context: async ({ env }: { env: any }) => {
         return {
@@ -112,5 +118,25 @@ const handler = startServerAndCreateCloudflareWorkersHandler(server, {
 });
 
 export default {
-    fetch: handler,
+    async fetch(request: Request, env: any, ctx: any) {
+        if (request.method === 'OPTIONS') {
+            return new Response(null, {
+                status: 204,
+                headers: corsHeaders,
+            });
+        }
+
+        const response = await handler(request, env, ctx);
+
+        const responseHeaders = new Headers(response.headers);
+        Object.entries(corsHeaders).forEach(([key, value]) => {
+            responseHeaders.set(key, value);
+        });
+
+        return new Response(response.body, {
+            status: response.status,
+            statusText: response.statusText,
+            headers: responseHeaders,
+        });
+    },
 };
