@@ -36,148 +36,6 @@ type AVIFOptions = {
   readonly speed: InputMaybe<Scalars['Int']>;
 };
 
-type AccommodationDirect = Node & {
-  readonly children: ReadonlyArray<Node>;
-  readonly coordinates: Maybe<Coordinates>;
-  readonly dbId: Maybe<Scalars['String']>;
-  readonly description: Maybe<Scalars['String']>;
-  readonly id: Scalars['ID'];
-  readonly image: Maybe<Scalars['String']>;
-  readonly internal: Internal;
-  readonly link: Maybe<Scalars['String']>;
-  readonly packages: Maybe<PricedPackages>;
-  readonly parent: Maybe<Node>;
-  readonly title: Maybe<Scalars['String']>;
-};
-
-type AccommodationDirectConnection = {
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<AccommodationDirectEdge>;
-  readonly group: ReadonlyArray<AccommodationDirectGroupConnection>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<AccommodationDirect>;
-  readonly pageInfo: PageInfo;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly totalCount: Scalars['Int'];
-};
-
-
-type AccommodationDirectConnection_distinctArgs = {
-  field: AccommodationDirectFieldSelector;
-};
-
-
-type AccommodationDirectConnection_groupArgs = {
-  field: AccommodationDirectFieldSelector;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-};
-
-
-type AccommodationDirectConnection_maxArgs = {
-  field: AccommodationDirectFieldSelector;
-};
-
-
-type AccommodationDirectConnection_minArgs = {
-  field: AccommodationDirectFieldSelector;
-};
-
-
-type AccommodationDirectConnection_sumArgs = {
-  field: AccommodationDirectFieldSelector;
-};
-
-type AccommodationDirectEdge = {
-  readonly next: Maybe<AccommodationDirect>;
-  readonly node: AccommodationDirect;
-  readonly previous: Maybe<AccommodationDirect>;
-};
-
-type AccommodationDirectFieldSelector = {
-  readonly children: InputMaybe<NodeFieldSelector>;
-  readonly coordinates: InputMaybe<CoordinatesFieldSelector>;
-  readonly dbId: InputMaybe<FieldSelectorEnum>;
-  readonly description: InputMaybe<FieldSelectorEnum>;
-  readonly id: InputMaybe<FieldSelectorEnum>;
-  readonly image: InputMaybe<FieldSelectorEnum>;
-  readonly internal: InputMaybe<InternalFieldSelector>;
-  readonly link: InputMaybe<FieldSelectorEnum>;
-  readonly packages: InputMaybe<PricedPackagesFieldSelector>;
-  readonly parent: InputMaybe<NodeFieldSelector>;
-  readonly title: InputMaybe<FieldSelectorEnum>;
-};
-
-type AccommodationDirectFilterInput = {
-  readonly children: InputMaybe<NodeFilterListInput>;
-  readonly coordinates: InputMaybe<CoordinatesFilterInput>;
-  readonly dbId: InputMaybe<StringQueryOperatorInput>;
-  readonly description: InputMaybe<StringQueryOperatorInput>;
-  readonly id: InputMaybe<StringQueryOperatorInput>;
-  readonly image: InputMaybe<StringQueryOperatorInput>;
-  readonly internal: InputMaybe<InternalFilterInput>;
-  readonly link: InputMaybe<StringQueryOperatorInput>;
-  readonly packages: InputMaybe<PricedPackagesFilterInput>;
-  readonly parent: InputMaybe<NodeFilterInput>;
-  readonly title: InputMaybe<StringQueryOperatorInput>;
-};
-
-type AccommodationDirectGroupConnection = {
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<AccommodationDirectEdge>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
-  readonly group: ReadonlyArray<AccommodationDirectGroupConnection>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<AccommodationDirect>;
-  readonly pageInfo: PageInfo;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly totalCount: Scalars['Int'];
-};
-
-
-type AccommodationDirectGroupConnection_distinctArgs = {
-  field: AccommodationDirectFieldSelector;
-};
-
-
-type AccommodationDirectGroupConnection_groupArgs = {
-  field: AccommodationDirectFieldSelector;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-};
-
-
-type AccommodationDirectGroupConnection_maxArgs = {
-  field: AccommodationDirectFieldSelector;
-};
-
-
-type AccommodationDirectGroupConnection_minArgs = {
-  field: AccommodationDirectFieldSelector;
-};
-
-
-type AccommodationDirectGroupConnection_sumArgs = {
-  field: AccommodationDirectFieldSelector;
-};
-
-type AccommodationDirectSortInput = {
-  readonly children: InputMaybe<NodeSortInput>;
-  readonly coordinates: InputMaybe<CoordinatesSortInput>;
-  readonly dbId: InputMaybe<SortOrderEnum>;
-  readonly description: InputMaybe<SortOrderEnum>;
-  readonly id: InputMaybe<SortOrderEnum>;
-  readonly image: InputMaybe<SortOrderEnum>;
-  readonly internal: InputMaybe<InternalSortInput>;
-  readonly link: InputMaybe<SortOrderEnum>;
-  readonly packages: InputMaybe<PricedPackagesSortInput>;
-  readonly parent: InputMaybe<NodeSortInput>;
-  readonly title: InputMaybe<SortOrderEnum>;
-};
-
 type BlurredOptions = {
   /** Force the output format for the low-res preview. Default is to use the same format as the input. You should rarely need to change this */
   readonly toFormat: InputMaybe<ImageFormat>;
@@ -192,26 +50,6 @@ type BooleanQueryOperatorInput = {
   readonly nin: InputMaybe<ReadonlyArray<InputMaybe<Scalars['Boolean']>>>;
 };
 
-type Coordinates = {
-  readonly lat: Maybe<Scalars['Float']>;
-  readonly lng: Maybe<Scalars['Float']>;
-};
-
-type CoordinatesFieldSelector = {
-  readonly lat: InputMaybe<FieldSelectorEnum>;
-  readonly lng: InputMaybe<FieldSelectorEnum>;
-};
-
-type CoordinatesFilterInput = {
-  readonly lat: InputMaybe<FloatQueryOperatorInput>;
-  readonly lng: InputMaybe<FloatQueryOperatorInput>;
-};
-
-type CoordinatesSortInput = {
-  readonly lat: InputMaybe<SortOrderEnum>;
-  readonly lng: InputMaybe<SortOrderEnum>;
-};
-
 type DateQueryOperatorInput = {
   readonly eq: InputMaybe<Scalars['Date']>;
   readonly gt: InputMaybe<Scalars['Date']>;
@@ -221,148 +59,6 @@ type DateQueryOperatorInput = {
   readonly lte: InputMaybe<Scalars['Date']>;
   readonly ne: InputMaybe<Scalars['Date']>;
   readonly nin: InputMaybe<ReadonlyArray<InputMaybe<Scalars['Date']>>>;
-};
-
-type DestinationDirect = Node & {
-  readonly children: ReadonlyArray<Node>;
-  readonly coordinates: Maybe<Coordinates>;
-  readonly dbId: Maybe<Scalars['String']>;
-  readonly description: Maybe<Scalars['String']>;
-  readonly detailed_description: Maybe<Scalars['String']>;
-  readonly id: Scalars['ID'];
-  readonly image: Maybe<Scalars['String']>;
-  readonly internal: Internal;
-  readonly link: Maybe<Scalars['String']>;
-  readonly parent: Maybe<Node>;
-  readonly title: Maybe<Scalars['String']>;
-};
-
-type DestinationDirectConnection = {
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<DestinationDirectEdge>;
-  readonly group: ReadonlyArray<DestinationDirectGroupConnection>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<DestinationDirect>;
-  readonly pageInfo: PageInfo;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly totalCount: Scalars['Int'];
-};
-
-
-type DestinationDirectConnection_distinctArgs = {
-  field: DestinationDirectFieldSelector;
-};
-
-
-type DestinationDirectConnection_groupArgs = {
-  field: DestinationDirectFieldSelector;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-};
-
-
-type DestinationDirectConnection_maxArgs = {
-  field: DestinationDirectFieldSelector;
-};
-
-
-type DestinationDirectConnection_minArgs = {
-  field: DestinationDirectFieldSelector;
-};
-
-
-type DestinationDirectConnection_sumArgs = {
-  field: DestinationDirectFieldSelector;
-};
-
-type DestinationDirectEdge = {
-  readonly next: Maybe<DestinationDirect>;
-  readonly node: DestinationDirect;
-  readonly previous: Maybe<DestinationDirect>;
-};
-
-type DestinationDirectFieldSelector = {
-  readonly children: InputMaybe<NodeFieldSelector>;
-  readonly coordinates: InputMaybe<CoordinatesFieldSelector>;
-  readonly dbId: InputMaybe<FieldSelectorEnum>;
-  readonly description: InputMaybe<FieldSelectorEnum>;
-  readonly detailed_description: InputMaybe<FieldSelectorEnum>;
-  readonly id: InputMaybe<FieldSelectorEnum>;
-  readonly image: InputMaybe<FieldSelectorEnum>;
-  readonly internal: InputMaybe<InternalFieldSelector>;
-  readonly link: InputMaybe<FieldSelectorEnum>;
-  readonly parent: InputMaybe<NodeFieldSelector>;
-  readonly title: InputMaybe<FieldSelectorEnum>;
-};
-
-type DestinationDirectFilterInput = {
-  readonly children: InputMaybe<NodeFilterListInput>;
-  readonly coordinates: InputMaybe<CoordinatesFilterInput>;
-  readonly dbId: InputMaybe<StringQueryOperatorInput>;
-  readonly description: InputMaybe<StringQueryOperatorInput>;
-  readonly detailed_description: InputMaybe<StringQueryOperatorInput>;
-  readonly id: InputMaybe<StringQueryOperatorInput>;
-  readonly image: InputMaybe<StringQueryOperatorInput>;
-  readonly internal: InputMaybe<InternalFilterInput>;
-  readonly link: InputMaybe<StringQueryOperatorInput>;
-  readonly parent: InputMaybe<NodeFilterInput>;
-  readonly title: InputMaybe<StringQueryOperatorInput>;
-};
-
-type DestinationDirectGroupConnection = {
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<DestinationDirectEdge>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
-  readonly group: ReadonlyArray<DestinationDirectGroupConnection>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<DestinationDirect>;
-  readonly pageInfo: PageInfo;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly totalCount: Scalars['Int'];
-};
-
-
-type DestinationDirectGroupConnection_distinctArgs = {
-  field: DestinationDirectFieldSelector;
-};
-
-
-type DestinationDirectGroupConnection_groupArgs = {
-  field: DestinationDirectFieldSelector;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-};
-
-
-type DestinationDirectGroupConnection_maxArgs = {
-  field: DestinationDirectFieldSelector;
-};
-
-
-type DestinationDirectGroupConnection_minArgs = {
-  field: DestinationDirectFieldSelector;
-};
-
-
-type DestinationDirectGroupConnection_sumArgs = {
-  field: DestinationDirectFieldSelector;
-};
-
-type DestinationDirectSortInput = {
-  readonly children: InputMaybe<NodeSortInput>;
-  readonly coordinates: InputMaybe<CoordinatesSortInput>;
-  readonly dbId: InputMaybe<SortOrderEnum>;
-  readonly description: InputMaybe<SortOrderEnum>;
-  readonly detailed_description: InputMaybe<SortOrderEnum>;
-  readonly id: InputMaybe<SortOrderEnum>;
-  readonly image: InputMaybe<SortOrderEnum>;
-  readonly internal: InputMaybe<InternalSortInput>;
-  readonly link: InputMaybe<SortOrderEnum>;
-  readonly parent: InputMaybe<NodeSortInput>;
-  readonly title: InputMaybe<SortOrderEnum>;
 };
 
 type Directory = Node & {
@@ -1579,26 +1275,6 @@ type PNGOptions = {
   readonly quality: InputMaybe<Scalars['Int']>;
 };
 
-type Package = {
-  readonly info: Maybe<Scalars['String']>;
-  readonly price: Maybe<Scalars['Int']>;
-};
-
-type PackageFieldSelector = {
-  readonly info: InputMaybe<FieldSelectorEnum>;
-  readonly price: InputMaybe<FieldSelectorEnum>;
-};
-
-type PackageFilterInput = {
-  readonly info: InputMaybe<StringQueryOperatorInput>;
-  readonly price: InputMaybe<IntQueryOperatorInput>;
-};
-
-type PackageSortInput = {
-  readonly info: InputMaybe<SortOrderEnum>;
-  readonly price: InputMaybe<SortOrderEnum>;
-};
-
 type PageInfo = {
   readonly currentPage: Scalars['Int'];
   readonly hasNextPage: Scalars['Boolean'];
@@ -1629,84 +1305,23 @@ type PotraceTurnPolicy =
   | 'right'
   | 'white';
 
-type PricedPackages = {
-  readonly cheapest: Maybe<Package>;
-  readonly expensive: Maybe<Package>;
-  readonly moderate: Maybe<Package>;
-};
-
-type PricedPackagesFieldSelector = {
-  readonly cheapest: InputMaybe<PackageFieldSelector>;
-  readonly expensive: InputMaybe<PackageFieldSelector>;
-  readonly moderate: InputMaybe<PackageFieldSelector>;
-};
-
-type PricedPackagesFilterInput = {
-  readonly cheapest: InputMaybe<PackageFilterInput>;
-  readonly expensive: InputMaybe<PackageFilterInput>;
-  readonly moderate: InputMaybe<PackageFilterInput>;
-};
-
-type PricedPackagesSortInput = {
-  readonly cheapest: InputMaybe<PackageSortInput>;
-  readonly expensive: InputMaybe<PackageSortInput>;
-  readonly moderate: InputMaybe<PackageSortInput>;
-};
-
 type Query = {
-  readonly accommodationDirect: Maybe<AccommodationDirect>;
-  readonly allAccommodationDirect: AccommodationDirectConnection;
-  readonly allDestinationDirect: DestinationDirectConnection;
   readonly allDirectory: DirectoryConnection;
   readonly allFile: FileConnection;
   readonly allImageSharp: ImageSharpConnection;
-  readonly allReviewDirect: ReviewDirectConnection;
   readonly allSite: SiteConnection;
   readonly allSiteBuildMetadata: SiteBuildMetadataConnection;
   readonly allSiteFunction: SiteFunctionConnection;
   readonly allSitePage: SitePageConnection;
   readonly allSitePlugin: SitePluginConnection;
-  readonly destinationDirect: Maybe<DestinationDirect>;
   readonly directory: Maybe<Directory>;
   readonly file: Maybe<File>;
   readonly imageSharp: Maybe<ImageSharp>;
-  readonly reviewDirect: Maybe<ReviewDirect>;
   readonly site: Maybe<Site>;
   readonly siteBuildMetadata: Maybe<SiteBuildMetadata>;
   readonly siteFunction: Maybe<SiteFunction>;
   readonly sitePage: Maybe<SitePage>;
   readonly sitePlugin: Maybe<SitePlugin>;
-};
-
-
-type Query_accommodationDirectArgs = {
-  children: InputMaybe<NodeFilterListInput>;
-  coordinates: InputMaybe<CoordinatesFilterInput>;
-  dbId: InputMaybe<StringQueryOperatorInput>;
-  description: InputMaybe<StringQueryOperatorInput>;
-  id: InputMaybe<StringQueryOperatorInput>;
-  image: InputMaybe<StringQueryOperatorInput>;
-  internal: InputMaybe<InternalFilterInput>;
-  link: InputMaybe<StringQueryOperatorInput>;
-  packages: InputMaybe<PricedPackagesFilterInput>;
-  parent: InputMaybe<NodeFilterInput>;
-  title: InputMaybe<StringQueryOperatorInput>;
-};
-
-
-type Query_allAccommodationDirectArgs = {
-  filter: InputMaybe<AccommodationDirectFilterInput>;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<AccommodationDirectSortInput>>>;
-};
-
-
-type Query_allDestinationDirectArgs = {
-  filter: InputMaybe<DestinationDirectFilterInput>;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<DestinationDirectSortInput>>>;
 };
 
 
@@ -1731,14 +1346,6 @@ type Query_allImageSharpArgs = {
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
   sort: InputMaybe<ReadonlyArray<InputMaybe<ImageSharpSortInput>>>;
-};
-
-
-type Query_allReviewDirectArgs = {
-  filter: InputMaybe<ReviewDirectFilterInput>;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-  sort: InputMaybe<ReadonlyArray<InputMaybe<ReviewDirectSortInput>>>;
 };
 
 
@@ -1779,21 +1386,6 @@ type Query_allSitePluginArgs = {
   limit: InputMaybe<Scalars['Int']>;
   skip: InputMaybe<Scalars['Int']>;
   sort: InputMaybe<ReadonlyArray<InputMaybe<SitePluginSortInput>>>;
-};
-
-
-type Query_destinationDirectArgs = {
-  children: InputMaybe<NodeFilterListInput>;
-  coordinates: InputMaybe<CoordinatesFilterInput>;
-  dbId: InputMaybe<StringQueryOperatorInput>;
-  description: InputMaybe<StringQueryOperatorInput>;
-  detailed_description: InputMaybe<StringQueryOperatorInput>;
-  id: InputMaybe<StringQueryOperatorInput>;
-  image: InputMaybe<StringQueryOperatorInput>;
-  internal: InputMaybe<InternalFilterInput>;
-  link: InputMaybe<StringQueryOperatorInput>;
-  parent: InputMaybe<NodeFilterInput>;
-  title: InputMaybe<StringQueryOperatorInput>;
 };
 
 
@@ -1893,21 +1485,6 @@ type Query_imageSharpArgs = {
 };
 
 
-type Query_reviewDirectArgs = {
-  age: InputMaybe<IntQueryOperatorInput>;
-  children: InputMaybe<NodeFilterListInput>;
-  date: InputMaybe<FloatQueryOperatorInput>;
-  dbId: InputMaybe<StringQueryOperatorInput>;
-  id: InputMaybe<StringQueryOperatorInput>;
-  image: InputMaybe<StringQueryOperatorInput>;
-  internal: InputMaybe<InternalFilterInput>;
-  name: InputMaybe<StringQueryOperatorInput>;
-  parent: InputMaybe<NodeFilterInput>;
-  rating: InputMaybe<FloatQueryOperatorInput>;
-  review: InputMaybe<StringQueryOperatorInput>;
-};
-
-
 type Query_siteArgs = {
   buildTime: InputMaybe<DateQueryOperatorInput>;
   children: InputMaybe<NodeFilterListInput>;
@@ -1979,148 +1556,6 @@ type Query_sitePluginArgs = {
   resolve: InputMaybe<StringQueryOperatorInput>;
   ssrAPIs: InputMaybe<StringQueryOperatorInput>;
   version: InputMaybe<StringQueryOperatorInput>;
-};
-
-type ReviewDirect = Node & {
-  readonly age: Maybe<Scalars['Int']>;
-  readonly children: ReadonlyArray<Node>;
-  readonly date: Maybe<Scalars['Float']>;
-  readonly dbId: Maybe<Scalars['String']>;
-  readonly id: Scalars['ID'];
-  readonly image: Maybe<Scalars['String']>;
-  readonly internal: Internal;
-  readonly name: Maybe<Scalars['String']>;
-  readonly parent: Maybe<Node>;
-  readonly rating: Maybe<Scalars['Float']>;
-  readonly review: Maybe<Scalars['String']>;
-};
-
-type ReviewDirectConnection = {
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<ReviewDirectEdge>;
-  readonly group: ReadonlyArray<ReviewDirectGroupConnection>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<ReviewDirect>;
-  readonly pageInfo: PageInfo;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly totalCount: Scalars['Int'];
-};
-
-
-type ReviewDirectConnection_distinctArgs = {
-  field: ReviewDirectFieldSelector;
-};
-
-
-type ReviewDirectConnection_groupArgs = {
-  field: ReviewDirectFieldSelector;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-};
-
-
-type ReviewDirectConnection_maxArgs = {
-  field: ReviewDirectFieldSelector;
-};
-
-
-type ReviewDirectConnection_minArgs = {
-  field: ReviewDirectFieldSelector;
-};
-
-
-type ReviewDirectConnection_sumArgs = {
-  field: ReviewDirectFieldSelector;
-};
-
-type ReviewDirectEdge = {
-  readonly next: Maybe<ReviewDirect>;
-  readonly node: ReviewDirect;
-  readonly previous: Maybe<ReviewDirect>;
-};
-
-type ReviewDirectFieldSelector = {
-  readonly age: InputMaybe<FieldSelectorEnum>;
-  readonly children: InputMaybe<NodeFieldSelector>;
-  readonly date: InputMaybe<FieldSelectorEnum>;
-  readonly dbId: InputMaybe<FieldSelectorEnum>;
-  readonly id: InputMaybe<FieldSelectorEnum>;
-  readonly image: InputMaybe<FieldSelectorEnum>;
-  readonly internal: InputMaybe<InternalFieldSelector>;
-  readonly name: InputMaybe<FieldSelectorEnum>;
-  readonly parent: InputMaybe<NodeFieldSelector>;
-  readonly rating: InputMaybe<FieldSelectorEnum>;
-  readonly review: InputMaybe<FieldSelectorEnum>;
-};
-
-type ReviewDirectFilterInput = {
-  readonly age: InputMaybe<IntQueryOperatorInput>;
-  readonly children: InputMaybe<NodeFilterListInput>;
-  readonly date: InputMaybe<FloatQueryOperatorInput>;
-  readonly dbId: InputMaybe<StringQueryOperatorInput>;
-  readonly id: InputMaybe<StringQueryOperatorInput>;
-  readonly image: InputMaybe<StringQueryOperatorInput>;
-  readonly internal: InputMaybe<InternalFilterInput>;
-  readonly name: InputMaybe<StringQueryOperatorInput>;
-  readonly parent: InputMaybe<NodeFilterInput>;
-  readonly rating: InputMaybe<FloatQueryOperatorInput>;
-  readonly review: InputMaybe<StringQueryOperatorInput>;
-};
-
-type ReviewDirectGroupConnection = {
-  readonly distinct: ReadonlyArray<Scalars['String']>;
-  readonly edges: ReadonlyArray<ReviewDirectEdge>;
-  readonly field: Scalars['String'];
-  readonly fieldValue: Maybe<Scalars['String']>;
-  readonly group: ReadonlyArray<ReviewDirectGroupConnection>;
-  readonly max: Maybe<Scalars['Float']>;
-  readonly min: Maybe<Scalars['Float']>;
-  readonly nodes: ReadonlyArray<ReviewDirect>;
-  readonly pageInfo: PageInfo;
-  readonly sum: Maybe<Scalars['Float']>;
-  readonly totalCount: Scalars['Int'];
-};
-
-
-type ReviewDirectGroupConnection_distinctArgs = {
-  field: ReviewDirectFieldSelector;
-};
-
-
-type ReviewDirectGroupConnection_groupArgs = {
-  field: ReviewDirectFieldSelector;
-  limit: InputMaybe<Scalars['Int']>;
-  skip: InputMaybe<Scalars['Int']>;
-};
-
-
-type ReviewDirectGroupConnection_maxArgs = {
-  field: ReviewDirectFieldSelector;
-};
-
-
-type ReviewDirectGroupConnection_minArgs = {
-  field: ReviewDirectFieldSelector;
-};
-
-
-type ReviewDirectGroupConnection_sumArgs = {
-  field: ReviewDirectFieldSelector;
-};
-
-type ReviewDirectSortInput = {
-  readonly age: InputMaybe<SortOrderEnum>;
-  readonly children: InputMaybe<NodeSortInput>;
-  readonly date: InputMaybe<SortOrderEnum>;
-  readonly dbId: InputMaybe<SortOrderEnum>;
-  readonly id: InputMaybe<SortOrderEnum>;
-  readonly image: InputMaybe<SortOrderEnum>;
-  readonly internal: InputMaybe<InternalSortInput>;
-  readonly name: InputMaybe<SortOrderEnum>;
-  readonly parent: InputMaybe<NodeSortInput>;
-  readonly rating: InputMaybe<SortOrderEnum>;
-  readonly review: InputMaybe<SortOrderEnum>;
 };
 
 type Site = Node & {
@@ -2960,6 +2395,26 @@ type GatsbyImageSharpFluid_withWebp_noBase64Fragment = { readonly aspectRatio: n
 type GatsbyImageSharpFluid_withWebp_tracedSVGFragment = { readonly tracedSVG: string | null, readonly aspectRatio: number, readonly src: string, readonly srcSet: string, readonly srcWebp: string | null, readonly srcSetWebp: string | null, readonly sizes: string };
 
 type GatsbyImageSharpFluidLimitPresentationSizeFragment = { readonly maxHeight: number, readonly maxWidth: number };
+
+type GetAccommodationImagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetAccommodationImagesQuery = { readonly allFile: { readonly nodes: ReadonlyArray<{ readonly relativePath: string, readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null }> } };
+
+type GetDestinationImagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetDestinationImagesQuery = { readonly allFile: { readonly nodes: ReadonlyArray<{ readonly relativePath: string, readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null }> } };
+
+type GetIndexImagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetIndexImagesQuery = { readonly allFile: { readonly nodes: ReadonlyArray<{ readonly relativePath: string, readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null }> } };
+
+type GetReviewImagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetReviewImagesQuery = { readonly allFile: { readonly nodes: ReadonlyArray<{ readonly relativePath: string, readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null }> } };
 
 
 }
