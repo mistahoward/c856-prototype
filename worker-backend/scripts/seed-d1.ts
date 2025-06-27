@@ -63,13 +63,12 @@ const tempSqlFile = path.join(__dirname, 'temp_insert.sql');
 
 /**
  * Executes a shell command synchronously and logs the command being executed
- * @param {string} command - The shell command to execute
- * @returns {void} Executes the command and inherits stdio streams
+ * @param command - The shell command to execute
+ * @returns Executes the command and inherits stdio streams
  */
 const run = (command: string) => {
-    // Add --remote flag to wrangler commands if specified
-    if (isRemote && command.includes('wrangler')) {
-        command = command.replace('wrangler', 'wrangler --remote');
+    if (isRemote && command.includes('wrangler d1 execute')) {
+        command = command.replace('wrangler d1 execute', 'wrangler d1 execute --remote');
     }
     console.log(`Executing: ${command}`);
     execSync(command, { stdio: 'inherit' });
