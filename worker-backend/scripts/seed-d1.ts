@@ -1,10 +1,9 @@
 import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const args = process.argv.slice(2);
+const isRemote = args.includes('--remote');
 
 const accommodations = [
     {
@@ -68,6 +67,10 @@ const tempSqlFile = path.join(__dirname, 'temp_insert.sql');
  * @returns {void} Executes the command and inherits stdio streams
  */
 const run = (command: string) => {
+    // Add --remote flag to wrangler commands if specified
+    if (isRemote && command.includes('wrangler')) {
+        command = command.replace('wrangler', 'wrangler --remote');
+    }
     console.log(`Executing: ${command}`);
     execSync(command, { stdio: 'inherit' });
 }
@@ -80,8 +83,9 @@ const run = (command: string) => {
 const escapeSql = (str: string) => str.replace(/'/g, "''");
 
 try {
+    console.log(`--- Database Seeding Script ---`);
+    console.log(`Mode: ${isRemote ? 'Remote' : 'Local'}`);
     console.log('--- Applying schema ---');
-    // schema is in the parent directory, so we use `..`
     run(`npx wrangler d1 execute ${dbName} --file=./schema.sql`);
 
     console.log('\n--- Seeding Accommodations ---');
