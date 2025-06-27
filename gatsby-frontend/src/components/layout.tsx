@@ -12,9 +12,10 @@ import {
 	Button,
 	Dropdown,
 } from 'react-bootstrap';
-import { navigate, withPrefix } from 'gatsby';
+import { navigate, withPrefix, Link } from 'gatsby';
 import { useQuery, gql } from '@apollo/client';
 import { useAuth } from '../contexts/AuthContext';
+import { useLocation } from '@reach/router';
 
 import type { LayoutProps } from './types';
 import '../scss/main.scss';
@@ -43,6 +44,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 	const [search, setSearch] = useState('');
 	const searchRef = useRef<HTMLInputElement>(null);
 	const { currentUser, logout } = useAuth();
+	const location = useLocation();
 
 	const { loading, error, data: apolloData } = useQuery(GET_SEARCH_DATA);
 
@@ -142,14 +144,59 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />
 				<Navbar.Collapse id="basic-navbar-nav">
 					<Nav className="me-auto">
-						<Nav.Link href={withPrefix('/about')}>About</Nav.Link>
-						<Nav.Link href={withPrefix('/destinations')}>
+						<Nav.Link
+							as={Link}
+							to={withPrefix('/about')}
+							active={location.pathname === withPrefix('/about')}
+							className={
+								location.pathname === withPrefix('/about/')
+									? 'active'
+									: ''
+							}
+						>
+							About
+						</Nav.Link>
+						<Nav.Link
+							as={Link}
+							to={withPrefix('/destinations/')}
+							active={
+								location.pathname.startsWith(
+									withPrefix('/destinations/')
+								) ||
+								location.pathname.startsWith(
+									withPrefix('/destination/')
+								)
+							}
+							className={
+								location.pathname.startsWith(
+									withPrefix('/destinations/')
+								) ||
+								location.pathname.startsWith(
+									withPrefix('/destination/')
+								)
+									? 'active'
+									: ''
+							}
+						>
 							Destinations
 						</Nav.Link>
-						<Nav.Link href={withPrefix('/accommodations')}>
+						<Nav.Link
+							as={Link}
+							to={withPrefix('/accommodations')}
+							active={
+								location.pathname ===
+								withPrefix('/accommodations/')
+							}
+						>
 							Accommodations
 						</Nav.Link>
-						<Nav.Link href={withPrefix('/reviews')}>
+						<Nav.Link
+							as={Link}
+							to={withPrefix('/reviews')}
+							active={
+								location.pathname === withPrefix('/reviews/')
+							}
+						>
 							Reviews
 						</Nav.Link>
 					</Nav>

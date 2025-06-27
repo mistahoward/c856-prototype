@@ -1,4 +1,97 @@
-@use '~bootstrap/scss/bootstrap';
+$brand-primary: #FF8800;
+$brand-secondary: #00BFAE;
+$brand-dark: #323232;
+$brand-light: #fffbe6;
+
+$primary: $brand-primary;
+$secondary: $brand-secondary;
+
+$theme-colors: (
+  "primary":    $primary,
+  "secondary":  $secondary,
+  "success":    #198754,
+  "info":       #0dcaf0,
+  "warning":    #ffc107,
+  "danger":     #dc3545,
+  "light":      $brand-light,
+  "dark":       $brand-dark
+);
+
+@import '~bootstrap/scss/bootstrap';
+
+:root {
+	--bs-primary: #FF8800;
+	--bs-primary-rgb: 255, 136, 0;
+	--bs-primary-bg-subtle: #ffe5cc;
+	--bs-primary-border-subtle: #ffd199;
+	--bs-primary-text-emphasis: #b35c00;
+	--bs-primary-hover: #e67300;
+	--bs-primary-active: #cc6600;
+	--bs-primary-focus-shadow-rgb: 255, 136, 0;
+
+	--bs-secondary: #00BFAE;
+	--bs-secondary-rgb: 0, 191, 174;
+	--bs-secondary-bg-subtle: #ccf7f3;
+	--bs-secondary-border-subtle: #99f0e7;
+	--bs-secondary-text-emphasis: #00665a;
+	--bs-secondary-hover: #009e90;
+	--bs-secondary-active: #007c6e;
+	--bs-secondary-focus-shadow-rgb: 0, 191, 174;
+
+	--bs-success: #198754;
+	--bs-success-rgb: 25, 135, 84;
+	--bs-success-bg-subtle: #d1e7dd;
+	--bs-success-border-subtle: #badbcc;
+	--bs-success-text-emphasis: #0f5132;
+	--bs-success-hover: #157347;
+	--bs-success-active: #115c39;
+	--bs-success-focus-shadow-rgb: 25, 135, 84;
+
+	--bs-danger: #dc3545;
+	--bs-danger-rgb: 220, 53, 69;
+	--bs-danger-bg-subtle: #f8d7da;
+	--bs-danger-border-subtle: #f5c2c7;
+	--bs-danger-text-emphasis: #842029;
+	--bs-danger-hover: #bb2d3b;
+	--bs-danger-active: #a71d2a;
+	--bs-danger-focus-shadow-rgb: 220, 53, 69;
+
+	--bs-warning: #ffc107;
+	--bs-warning-rgb: 255, 193, 7;
+	--bs-warning-bg-subtle: #fff3cd;
+	--bs-warning-border-subtle: #ffecb5;
+	--bs-warning-text-emphasis: #664d03;
+	--bs-warning-hover: #e0a800;
+	--bs-warning-active: #c69500;
+	--bs-warning-focus-shadow-rgb: 255, 193, 7;
+
+	--bs-info: #0dcaf0;
+	--bs-info-rgb: 13, 202, 240;
+	--bs-info-bg-subtle: #cff4fc;
+	--bs-info-border-subtle: #b6effb;
+	--bs-info-text-emphasis: #055160;
+	--bs-info-hover: #0bbbe6;
+	--bs-info-active: #099ec2;
+	--bs-info-focus-shadow-rgb: 13, 202, 240;
+
+	--bs-light: #fffbe6;
+	--bs-light-rgb: 255, 251, 230;
+	--bs-light-bg-subtle: #fffbe6;
+	--bs-light-border-subtle: #fffbe6;
+	--bs-light-text-emphasis: #b3a76d;
+	--bs-light-hover: #fff7cc;
+	--bs-light-active: #fff3b3;
+	--bs-light-focus-shadow-rgb: 255, 251, 230;
+
+	--bs-dark: #323232;
+	--bs-dark-rgb: 50, 50, 50;
+	--bs-dark-bg-subtle: #d6d6d6;
+	--bs-dark-border-subtle: #b3b3b3;
+	--bs-dark-text-emphasis: #1a1a1a;
+	--bs-dark-hover: #232323;
+	--bs-dark-active: #141414;
+	--bs-dark-focus-shadow-rgb: 50, 50, 50;
+}
 
 .container-fluid {
 	padding: 0;
@@ -28,14 +121,14 @@
 	&.text-black {
 		a {
 			&:hover, &:active, &:focus {
-				color: #323232 !important;
+				color: $brand-dark !important;
 			}
 			color: black !important;
 		}
 	}
 	a {
 		&:hover, &:active, &:focus {
-			color: b2b2b2	 !important;
+			color: $brand-primary !important;
 		}
 		color: white !important;
 	}
@@ -131,13 +224,32 @@
 	}
 	
 	.btn-outline-primary {
-		border-color: #007bff;
-		color: #007bff;
-		
-		&:hover {
-			background-color: #007bff;
-			border-color: #007bff;
+		border-color: $primary;
+		color: $primary;
+		&:hover, &:focus {
+			background-color: $primary;
+			border-color: $primary;
 			color: #fff;
+		}
+		&:active, &.active {
+			background-color: $primary;
+			border-color: $primary;
+			color: #fff !important;
+		}
+	}
+
+	.btn-outline-secondary {
+		border-color: $secondary;
+		color: $secondary;
+		&:hover, &:focus {
+			background-color: $secondary;
+			border-color: $secondary;
+			color: #fff;
+		}
+		&:active, &.active {
+			background-color: $secondary;
+			border-color: $secondary;
+			color: #fff !important;
 		}
 	}
 }
@@ -150,7 +262,6 @@
 		height: 95vh;
 		overflow-y: auto;
 		overflow-x: none;
-		background-color: white;
 		padding: 20px;
 		box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
 		
@@ -163,7 +274,7 @@
 			&:hover {
 				.card {
 					box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-					background-color: #f5f5f5;
+					background-color: $brand-light;
 				}
 			}
 		}
@@ -195,7 +306,8 @@
 .nav-card {
 	cursor: pointer;
 	&:hover {
-		background-color: shade-color(#fff, 20%);
+		background-color: $brand-primary !important;
+		color: #fff !important;
 	}
 }
 
@@ -228,7 +340,8 @@
 }
 
 .overlay-card > .card {
-	background: rgba(255,255,255,0.95);
+	background: $brand-light;
+	color: $brand-dark;
 	box-shadow: 0 8px 32px rgba(0,0,0,0.1);
 	border: none;
 	padding: 2rem;
@@ -299,4 +412,43 @@
 	align-items: flex-start;
 	background: none !important;
 	overflow: visible;
+}
+
+// Custom button hover/active using CSS variables
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-primary);
+  color: #fff;
+  &:hover, &:focus {
+    background-color: var(--bs-primary-hover);
+    border-color: var(--bs-primary-hover);
+    color: #fff;
+  }
+  &:active, &.active {
+    background-color: var(--bs-primary-active);
+    border-color: var(--bs-primary-active);
+    color: #fff !important;
+  }
+}
+
+.btn-secondary {
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-secondary);
+  color: #fff;
+  &:hover, &:focus {
+    background-color: var(--bs-secondary-hover);
+    border-color: var(--bs-secondary-hover);
+    color: #fff;
+  }
+  &:active, &.active {
+    background-color: var(--bs-secondary-active);
+    border-color: var(--bs-secondary-active);
+    color: #fff !important;
+  }
+}
+
+.navbar-nav .nav-link.active, .nav-link.active {
+  border-bottom: 3px solid $brand-primary;
+  color: $brand-primary !important;
+  font-weight: 600;
 }
