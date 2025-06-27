@@ -11,3 +11,6 @@ database_id = "a59a6c0e-cc34-4c29-b287-a7fac886ed82"
 [observability]
 enabled = true
 head_sampling_rate = 1
+
+[vars]
+GATSBY_FRONTEND_URL = "https://c856-prototype.pages.dev/"
