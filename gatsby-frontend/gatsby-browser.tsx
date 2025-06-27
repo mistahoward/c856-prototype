@@ -1,11 +1,9 @@
-import React from 'react';
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import { wrapRootElement as wrap } from './apollo/wrap-root-element';
+import { loadErrorMessages, loadDevMessages } from "@apollo/client/dev";
 
-const client = new ApolloClient({
-  uri: process.env.GATSBY_API_URL || 'http://127.0.0.1:8787/',
-  cache: new InMemoryCache(),
-});
+if (process.env.NODE_ENV !== "production") {
+  loadDevMessages();
+  loadErrorMessages();
+}
 
-export const wrapRootElement = ({ element }: { element: React.ReactNode }) => (
-  <ApolloProvider client={client}>{element}</ApolloProvider>
-);
+export const wrapRootElement = wrap;
