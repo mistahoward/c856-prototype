@@ -13,4 +13,4 @@ enabled = true
 head_sampling_rate = 1
 
 [vars]
-GATSBY_FRONTEND_URL = "https://c856-prototype.pages.dev/"
+GATSBY_FRONTEND_URL = "https://c856-prototype.pages.dev"
