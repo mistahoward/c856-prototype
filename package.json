@@ -12,6 +12,11 @@
 	  "deploy:api": "yarn workspace worker-backend deploy",
 	  "deploy:frontend": "echo \"Frontend deployment is triggered by a git push to Cloudflare Pages\"",
 	  "deploy": "yarn deploy:api && git push"
+	},
+	"overrides": {
+		"react": "18.2.0",
+		"react-dom": "18.2.0",
+		"@apollo/client": "^3.11.0"
 	}
   }
   
