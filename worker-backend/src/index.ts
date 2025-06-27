@@ -104,39 +104,49 @@ const server = new ApolloServer({
 });
 
 const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Origin': process.env.GATSBY_FRONTEND_URL || 'http://localhost:8000',
   'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
-const handler = startServerAndCreateCloudflareWorkersHandler(server, {
-    context: async ({ env }: { env: any }) => {
-        return {
-            DB: env.DB,
-        };
-    },
+const apolloHandler = startServerAndCreateCloudflareWorkersHandler(server, {
+  context: async ({ env }: { env: any }) => ({ DB: env.DB }),
 });
 
 export default {
-    async fetch(request: Request, env: any, ctx: any) {
-        if (request.method === 'OPTIONS') {
-            return new Response(null, {
-                status: 204,
-                headers: corsHeaders,
-            });
-        }
+  async fetch(request: Request, env: any, ctx: any) {
+    const url = new URL(request.url);
 
-        const response = await handler(request, env, ctx);
+    if (request.method === 'OPTIONS') 
+      return new Response(null, { headers: corsHeaders });
 
+    switch (url.pathname) {
+      case '/test': {
+        const data = { message: "CORS test successful!", timestamp: new Date() };
+        return new Response(JSON.stringify(data), {
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders
+          }
+        });
+      }
+
+      case '/': 
+      case '/graphql': { 
+        const response = await apolloHandler(request, env, ctx);
         const responseHeaders = new Headers(response.headers);
-        Object.entries(corsHeaders).forEach(([key, value]) => {
-            responseHeaders.set(key, value);
-        });
-
+        Object.entries(corsHeaders).forEach(([key, value]) => 
+          responseHeaders.set(key, value)
+        );
         return new Response(response.body, {
-            status: response.status,
-            statusText: response.statusText,
-            headers: responseHeaders,
+          status: response.status,
+          statusText: response.statusText,
+          headers: responseHeaders
         });
-    },
+      }
+
+      default:
+        return new Response('Not Found', { status: 404 });
+    }
+  }
 };
