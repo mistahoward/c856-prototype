@@ -1,4 +1,10 @@
 import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const accommodations = [
     {
@@ -52,32 +58,61 @@ const reviews = [
     { name: 'Aisha Khan', age: 30, review: "As an avid traveler, I've seen many places, but this island stole my heart. The lush forests and pristine beaches are a nature lover's dream. However, the nightlife was a bit lacking.", rating: 4, image: 'aisha_khan.jpg', date: 1683894000000 }
 ];
 
-const dbName = 'c856-database';
 
+const dbName = 'c856-database';
+const tempSqlFile = path.join(__dirname, 'temp_insert.sql');
+
+/**
+ * Executes a shell command synchronously and logs the command being executed
+ * @param {string} command - The shell command to execute
+ * @returns {void} Executes the command and inherits stdio streams
+ */
 const run = (command: string) => {
     console.log(`Executing: ${command}`);
-    execSync(command.replace(/'/g, "'\\''"), { stdio: 'inherit' });
+    execSync(command, { stdio: 'inherit' });
 }
 
-console.log('--- Applying schema ---');
-run(`npx wrangler d1 execute ${dbName} --file=./schema.sql`);
+/**
+ * Escapes single quotes in a string for safe SQL insertion
+ * @param str - The string to escape
+ * @returns The escaped string with single quotes doubled
+ */
+const escapeSql = (str: string) => str.replace(/'/g, "''");
 
-console.log('\n--- Seeding Accommodations ---');
-for (const item of accommodations) {
-    const query = `INSERT INTO accommodations (id, title, description, lat, lng, image, expensive_price, expensive_info, moderate_price, moderate_info, cheapest_price, cheapest_info) VALUES (${item.id}, '${item.title}', '${item.description}', ${item.lat}, ${item.lng}, '${item.image}', ${item.expensive_price}, '${item.expensive_info}', ${item.moderate_price}, '${item.moderate_info}', ${item.cheapest_price}, '${item.cheapest_info}');`;
-    run(`npx wrangler d1 execute ${dbName} --command='${query}'`);
+try {
+    console.log('--- Applying schema ---');
+    // schema is in the parent directory, so we use `..`
+    run(`npx wrangler d1 execute ${dbName} --file=./schema.sql`);
+
+    console.log('\n--- Seeding Accommodations ---');
+    for (const item of accommodations) {
+        const query = `INSERT INTO accommodations (id, title, description, lat, lng, image, expensive_price, expensive_info, moderate_price, moderate_info, cheapest_price, cheapest_info) VALUES (${item.id}, '${escapeSql(item.title)}', '${escapeSql(item.description)}', ${item.lat}, ${item.lng}, '${escapeSql(item.image)}', ${item.expensive_price}, '${escapeSql(item.expensive_info)}', ${item.moderate_price}, '${escapeSql(item.moderate_info)}', ${item.cheapest_price}, '${escapeSql(item.cheapest_info)}');`;
+        fs.writeFileSync(tempSqlFile, query);
+        run(`npx wrangler d1 execute ${dbName} --file=${tempSqlFile}`);
+    }
+
+    console.log('\n--- Seeding Destinations ---');
+    for (const item of destinations) {
+        const query = `INSERT INTO destinations (id, title, description, detailed_description, lat, lng, image) VALUES (${item.id}, '${escapeSql(item.title)}', '${escapeSql(item.description)}', '${escapeSql(item.detailed_description)}', ${item.lat}, ${item.lng}, '${escapeSql(item.image)}');`;
+        fs.writeFileSync(tempSqlFile, query);
+        run(`npx wrangler d1 execute ${dbName} --file=${tempSqlFile}`);
+    }
+
+    console.log('\n--- Seeding Reviews ---');
+    for (const item of reviews) {
+        const query = `INSERT INTO reviews (name, age, review, rating, image, date) VALUES ('${escapeSql(item.name)}', ${item.age}, '${escapeSql(item.review)}', ${item.rating}, '${escapeSql(item.image)}', ${item.date});`;
+        fs.writeFileSync(tempSqlFile, query);
+        run(`npx wrangler d1 execute ${dbName} --file=${tempSqlFile}`);
+    }
+
+    console.log('\nDatabase seeded successfully!');
+
+} catch (error) {
+    console.error("\n--- AN ERROR OCCURRED ---");
+    console.error(error);
+} finally {
+    if (fs.existsSync(tempSqlFile)) {
+        fs.unlinkSync(tempSqlFile);
+        console.log("\nCleaned up temporary file.");
+    }
 }
-
-console.log('\n--- Seeding Destinations ---');
-for (const item of destinations) {
-    const query = `INSERT INTO destinations (id, title, description, detailed_description, lat, lng, image) VALUES (${item.id}, '${item.title}', '${item.description}', '${item.detailed_description}', ${item.lat}, ${item.lng}, '${item.image}');`;
-    run(`npx wrangler d1 execute ${dbName} --command='${query}'`);
-}
-
-console.log('\n--- Seeding Reviews ---');
-for (const item of reviews) {
-    const query = `INSERT INTO reviews (name, age, review, rating, image, date) VALUES ('${item.name}', ${item.age}, '${item.review}', ${item.rating}, '${item.image}', ${item.date});`;
-    run(`npx wrangler d1 execute ${dbName} --command='${query}'`);
-}
-
-console.log('\nDatabase seeded successfully!');
