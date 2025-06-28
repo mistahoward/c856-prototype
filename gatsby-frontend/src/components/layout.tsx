@@ -220,7 +220,7 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 							</Col>
 						</Row>
 					</Form>
-					<Nav>
+					<Nav className="me-2">
 						{currentUser ? (
 							<Dropdown>
 								<Dropdown.Toggle

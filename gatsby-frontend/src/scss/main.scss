@@ -222,35 +222,35 @@ $theme-colors: (
 			box-shadow: none;
 		}
 	}
-	
-	.btn-outline-primary {
-		border-color: $primary;
-		color: $primary;
-		&:hover, &:focus {
-			background-color: $primary;
-			border-color: $primary;
-			color: #fff;
-		}
-		&:active, &.active {
-			background-color: $primary;
-			border-color: $primary;
-			color: #fff !important;
-		}
-	}
+}
 
-	.btn-outline-secondary {
+.btn-outline-primary {
+	border-color: $primary;
+	color: $primary;
+	&:hover, &:focus {
+		background-color: $primary;
+		border-color: $primary;
+		color: #fff !important;
+	}
+	&:active, &.active {
+		background-color: $primary;
+		border-color: $primary;
+		color: #fff !important;
+	}
+}
+
+.btn-outline-secondary {
+	border-color: $secondary;
+	color: $secondary;
+	&:hover, &:focus {
+		background-color: $secondary;
 		border-color: $secondary;
-		color: $secondary;
-		&:hover, &:focus {
-			background-color: $secondary;
-			border-color: $secondary;
-			color: #fff;
-		}
-		&:active, &.active {
-			background-color: $secondary;
-			border-color: $secondary;
-			color: #fff !important;
-		}
+		color: #fff !important;
+	}
+	&:active, &.active {
+		background-color: $secondary;
+		border-color: $secondary;
+		color: #fff !important;
 	}
 }
 
@@ -451,4 +451,8 @@ $theme-colors: (
   border-bottom: 3px solid $brand-primary;
   color: $brand-primary !important;
   font-weight: 600;
+}
+
+.nav-link:hover {
+	color: $secondary;
 }
