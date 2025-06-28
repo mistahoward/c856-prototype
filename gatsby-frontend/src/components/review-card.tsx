@@ -23,7 +23,13 @@ const ReviewCard = ({ review, gatsbyImage }: ReviewCardProps) => (
 			<Card.Body>
 				<Row>
 					<Col className="text-center">
-						<GatsbyImage imgClassName="avatar" image={gatsbyImage} alt={review.name} />
+						{gatsbyImage && (
+							<GatsbyImage
+								imgClassName="avatar"
+								image={gatsbyImage}
+								alt={review.name}
+							/>
+						)}
 					</Col>
 				</Row>
 				<Row>
@@ -54,9 +60,7 @@ const ReviewCard = ({ review, gatsbyImage }: ReviewCardProps) => (
 				<Row>
 					<Col className="text-center text-muted">
 						<p>
-							<em>
-								{epochToReadableDate(review.date)}
-							</em>
+							<em>{epochToReadableDate(review.date)}</em>
 						</p>
 					</Col>
 				</Row>

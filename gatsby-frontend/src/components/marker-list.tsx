@@ -5,17 +5,23 @@ import { graphql, useStaticQuery } from 'gatsby';
 
 import type { MarkerListProps } from './types';
 
-const MarkersList = ({ locations, title = 'Markers', map, openPopup }: MarkerListProps) => {
+const MarkersList = ({
+	locations,
+	title = 'Markers',
+	map,
+	openPopup,
+}: MarkerListProps) => {
 	const imageData = useStaticQuery(graphql`
 		query {
 			allFile(filter: { sourceInstanceName: { eq: "images" } }) {
-				edges {
-					node {
-						childImageSharp {
-							gatsbyImageData(layout: FULL_WIDTH, placeholder: BLURRED)
-						}
-						relativePath
+				nodes {
+					childImageSharp {
+						gatsbyImageData(
+							layout: FULL_WIDTH
+							placeholder: BLURRED
+						)
 					}
+					relativePath
 				}
 			}
 		}
@@ -24,10 +30,10 @@ const MarkersList = ({ locations, title = 'Markers', map, openPopup }: MarkerLis
 		<div className="markers-sidebar">
 			<h3>{title}</h3>
 			{locations.map((marker, index) => {
-				const image = imageData.allFile.edges.find(
-					(edge: { node: { relativePath: string } }) =>
-						edge.node.relativePath === marker.image
-				)?.node.childImageSharp.gatsbyImageData;
+				const image = imageData.allFile.nodes.find(
+					(node: { relativePath: string }) =>
+						node.relativePath === marker.image
+				)?.childImageSharp?.gatsbyImageData;
 				return (
 					<Row
 						key={`${marker.id}-row`}
@@ -38,11 +44,13 @@ const MarkersList = ({ locations, title = 'Markers', map, openPopup }: MarkerLis
 						}}
 					>
 						<Card>
-							<GatsbyImage
-								className="card-img-top"
-								image={image}
-								alt={marker.title}
-							/>
+							{image && (
+								<GatsbyImage
+									className="card-img-top"
+									image={image}
+									alt={marker.title}
+								/>
+							)}
 							<Card.Body>
 								<Card.Title>{marker.title}</Card.Title>
 								<Card.Text>{marker.description}</Card.Text>
