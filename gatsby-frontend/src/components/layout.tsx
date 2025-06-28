@@ -15,6 +15,7 @@ import {
 import { navigate, withPrefix, Link } from 'gatsby';
 import { useQuery, gql } from '@apollo/client';
 import { useAuth } from '../contexts/AuthContext';
+import { useUserSync } from '../hooks/useUserSync';
 import { useLocation } from '@reach/router';
 
 import type { LayoutProps } from './types';
@@ -45,6 +46,9 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 	const searchRef = useRef<HTMLInputElement>(null);
 	const { currentUser, logout } = useAuth();
 	const location = useLocation();
+
+	// Sync user to backend when they sign in
+	useUserSync();
 
 	const { loading, error, data: apolloData } = useQuery(GET_SEARCH_DATA);
 

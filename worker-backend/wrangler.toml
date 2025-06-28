@@ -3,6 +3,9 @@ compatibility_date = "2025-06-26"
 main = "src/index.ts"
 compatibility_flags = ["nodejs_compat"]
 
+# External dependencies for Wrangler v4
+external = ["jose"]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "c856-database"

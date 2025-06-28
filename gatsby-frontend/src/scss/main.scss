@@ -295,10 +295,6 @@ $theme-colors: (
 	box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.average-ratings {
-	margin-top: 25vh;
-}
-
 .popover-body {
 	z-index: 1000;
 }
@@ -455,4 +451,83 @@ $theme-colors: (
 
 .nav-link:hover {
 	color: $secondary;
+}
+
+// Review form styles
+.review-form {
+	.star-rating {
+		transition: color 0.2s ease;
+		
+		&:hover {
+			transform: scale(1.1);
+		}
+	}
+	
+	.form-control:focus {
+		border-color: var(--bs-primary);
+		box-shadow: 0 0 0 0.2rem rgba(255, 136, 0, 0.25);
+	}
+}
+
+.avatar {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid var(--bs-primary);
+}
+
+.verified-user {
+	color: var(--bs-success);
+	font-size: 0.8rem;
+	font-weight: 500;
+}
+
+.review-list-stack {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+}
+
+.review-row {
+	display: flex;
+	align-items: flex-start;
+	padding: 1.5rem 0;
+	border-bottom: 1px solid #eee;
+}
+
+.review-avatar .avatar {
+	width: 60px;
+	height: 60px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 2px solid #ffa50022;
+}
+
+.review-content {
+	flex: 1;
+}
+
+.review-name {
+	font-size: 1.3rem;
+	font-weight: 600;
+}
+
+.review-list-scrollable {
+	max-height: 600px;
+	overflow-y: auto;
+	padding-right: 8px;
+}
+
+.average-rating-card {
+	max-width: 260px;
+	margin-bottom: 1rem;
+	align-items: flex-start;
+	text-align: left;
+}
+
+.average-rating-card h1,
+.average-rating-card h3,
+.average-rating-card h4 {
+	text-align: left;
 }

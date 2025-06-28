@@ -33,11 +33,24 @@ export type Destination = Location & {
 
 export type Ratings = 0 | 0.5 | 1 | 1.5 | 2 | 2.5 | 3 | 3.5 | 4 | 4.5 | 5;
 
+export type User = {
+	id: string;
+	firebaseId: string;
+	email: string;
+	displayName?: string;
+	photoURL?: string;
+	createdAt: string;
+	updatedAt: string;
+};
+
 export type Review = {
-	name: string;
-	age: number;
+	id: string;
+	user?: User;
+	userId?: string;
+	name?: string;
+	age?: number;
 	review: string;
 	rating: Ratings;
-	image: string;
+	image?: string;
 	date: EpochTimeStamp;
 };

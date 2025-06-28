@@ -12,8 +12,15 @@ CREATE TABLE destinations (
   lat REAL, lng REAL, image TEXT
 );
 CREATE TABLE reviews (
-  id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, age INTEGER, review TEXT,
-  rating REAL, image TEXT, date INTEGER
+  id INTEGER PRIMARY KEY AUTOINCREMENT, 
+  user_id INTEGER,
+  name TEXT, 
+  age INTEGER, 
+  review TEXT NOT NULL,
+  rating REAL NOT NULL, 
+  image TEXT, 
+  date INTEGER NOT NULL,
+  FOREIGN KEY (user_id) REFERENCES users(id)
 );
 
 CREATE TABLE IF NOT EXISTS users (
@@ -22,6 +29,7 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT UNIQUE NOT NULL,
     display_name TEXT,
     photo_url TEXT,
+    role TEXT DEFAULT 'user',
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );

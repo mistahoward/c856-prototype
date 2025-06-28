@@ -19,6 +19,8 @@ export type MarkerListProps = {
 export type ReviewCardProps = {
 	review: Review;
 	gatsbyImage: IGatsbyImageData;
+	currentUser?: any;
+	onDelete?: (id: string) => void;
 };
 
 export type RatingStarProps = {

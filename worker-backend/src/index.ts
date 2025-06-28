@@ -1,6 +1,13 @@
 import { ApolloServer } from '@apollo/server';
 import { startServerAndCreateCloudflareWorkersHandler } from '@as-integrations/cloudflare-workers';
 import { gql } from 'graphql-tag';
+import { verifyFirebaseToken } from './firebaseVerify.js';
+
+// Define context type
+interface Context {
+	DB: any;
+	currentUser: any;
+}
 
 const typeDefs = gql`
 	type Query {
@@ -18,6 +25,9 @@ const typeDefs = gql`
 		updateUser(id: ID!, input: UpdateUserInput!): User
 		saveFavorite(userId: ID!, type: String!, itemId: ID!): User
 		removeFavorite(userId: ID!, type: String!, itemId: ID!): User
+		createReview(input: CreateReviewInput!): Review
+		updateReview(id: ID!, input: UpdateReviewInput!): Review
+		deleteReview(id: ID!): Boolean
 	}
 
 	input CreateUserInput {
@@ -32,6 +42,16 @@ const typeDefs = gql`
 		photoURL: String
 	}
 
+	input CreateReviewInput {
+		review: String!
+		rating: Float!
+	}
+
+	input UpdateReviewInput {
+		review: String
+		rating: Float
+	}
+
 	type User {
 		id: ID!
 		firebaseId: String!
@@ -39,6 +59,7 @@ const typeDefs = gql`
 		displayName: String
 		photoURL: String
 		favorites: [Favorite]
+		reviews: [Review]
 		createdAt: String
 		updatedAt: String
 	}
@@ -90,6 +111,8 @@ const typeDefs = gql`
 	}
 	type Review {
 		id: ID!
+		user: User
+		userId: ID
 		name: String
 		age: Int
 		review: String
@@ -101,6 +124,10 @@ const typeDefs = gql`
 
 const resolvers = {
 	Query: {
+		/**
+		 * Retrieves all accommodations from the database
+		 * Maps database rows to GraphQL schema format with coordinates and packages
+		 */
 		accommodations: async (_, _2, context) => {
 			const { results } = await context.DB.prepare(
 				'SELECT * FROM accommodations'
@@ -127,6 +154,10 @@ const resolvers = {
 				},
 			}));
 		},
+		/**
+		 * Retrieves a specific accommodation by ID
+		 * @param id - The accommodation ID to retrieve
+		 */
 		accommodation: async (parent, { id }, context) => {
 			const result = await context.DB.prepare(
 				'SELECT * FROM accommodations WHERE id = ?'
@@ -158,6 +189,10 @@ const resolvers = {
 				},
 			};
 		},
+		/**
+		 * Retrieves all destinations from the database
+		 * Maps database rows to include coordinates object
+		 */
 		destinations: async (_, _2, context) => {
 			const { results } = await context.DB.prepare(
 				'SELECT * FROM destinations'
@@ -167,6 +202,10 @@ const resolvers = {
 				coordinates: { lat: row.lat, lng: row.lng },
 			}));
 		},
+		/**
+		 * Retrieves a specific destination by ID
+		 * @param id - The destination ID to retrieve
+		 */
 		destination: async (_, { id }, context) => {
 			const result = await context.DB.prepare(
 				'SELECT * FROM destinations WHERE id = ?'
@@ -181,12 +220,19 @@ const resolvers = {
 				coordinates: { lat: result.lat, lng: result.lng },
 			};
 		},
+		/**
+		 * Retrieves all reviews from the database
+		 */
 		reviews: async (_, _2, context) => {
 			const { results } = await context.DB.prepare(
 				'SELECT * FROM reviews'
 			).all();
 			return results;
 		},
+		/**
+		 * Retrieves a specific user by ID
+		 * @param id - The user ID to retrieve
+		 */
 		user: async (_, { id }, context) => {
 			const result = await context.DB.prepare(
 				'SELECT * FROM users WHERE id = ?'
@@ -198,12 +244,20 @@ const resolvers = {
 
 			return result;
 		},
+		/**
+		 * Retrieves the currently authenticated user
+		 * TODO: Implement authentication token parsing
+		 */
 		currentUser: async (_, _2, context) => {
 			// TODO: Get user from auth token
 			return null;
 		},
 	},
 	Mutation: {
+		/**
+		 * Creates a new user in the database
+		 * @param input - User creation data including firebaseId, email, displayName, and photoURL
+		 */
 		createUser: async (_, { input }, context) => {
 			const { firebaseId, email, displayName, photoURL } = input;
 
@@ -219,6 +273,11 @@ const resolvers = {
 
 			return result;
 		},
+		/**
+		 * Updates an existing user's information
+		 * @param id - The user ID to update
+		 * @param input - User update data including displayName and photoURL
+		 */
 		updateUser: async (_, { id, input }, context) => {
 			const { displayName, photoURL } = input;
 
@@ -235,6 +294,13 @@ const resolvers = {
 
 			return result;
 		},
+		/**
+		 * Saves a favorite item for a user
+		 * Uses INSERT OR IGNORE to prevent duplicate favorites
+		 * @param userId - The user ID
+		 * @param type - The type of item (accommodation, destination, etc.)
+		 * @param itemId - The ID of the item to favorite
+		 */
 		saveFavorite: async (_, { userId, type, itemId }, context) => {
 			await context.DB.prepare(
 				`
@@ -249,6 +315,12 @@ const resolvers = {
 				.bind(userId)
 				.first();
 		},
+		/**
+		 * Removes a favorite item for a user
+		 * @param userId - The user ID
+		 * @param type - The type of item
+		 * @param itemId - The ID of the item to remove from favorites
+		 */
 		removeFavorite: async (_, { userId, type, itemId }, context) => {
 			await context.DB.prepare(
 				`
@@ -263,21 +335,155 @@ const resolvers = {
 				.bind(userId)
 				.first();
 		},
+		/**
+		 * Creates a new review
+		 * Requires authentication and associates the review with the current user
+		 * @param input - Review creation data including review text and rating
+		 */
+		createReview: async (_, { input }, context) => {
+			const { review, rating } = input;
+			if (!context.currentUser)
+				throw new Error('Authentication required to create a review');
+
+			const result = await context.DB.prepare(
+				`INSERT INTO reviews (user_id, review, rating, date)
+				 VALUES (?, ?, ?, ?)
+				 RETURNING *`
+			)
+				.bind(context.currentUser.id, review, rating, Date.now())
+				.first();
+
+			// Always fetch the user from the DB to ensure consistency
+			return { ...result, userId: result.user_id };
+		},
+		/**
+		 * Updates an existing review
+		 * Requires authentication and ensures the user owns the review
+		 * @param id - The review ID to update
+		 * @param input - Review update data including review text and rating
+		 */
+		updateReview: async (_, { id, input }, context) => {
+			const { review, rating } = input;
+
+			if (!context.currentUser) {
+				throw new Error('Authentication required to update a review');
+			}
+
+			// Check if the review belongs to the current user
+			const existingReview = await context.DB.prepare(
+				'SELECT * FROM reviews WHERE id = ? AND user_id = ?'
+			)
+				.bind(id, context.currentUser.id)
+				.first();
+
+			if (!existingReview) {
+				throw new Error(
+					'Review not found or you do not have permission to update it'
+				);
+			}
+
+			const result = await context.DB.prepare(
+				`
+        UPDATE reviews 
+        SET review = ?, rating = ?
+        WHERE id = ? AND user_id = ?
+        RETURNING *
+      `
+			)
+				.bind(review, rating, id, context.currentUser.id)
+				.first();
+
+			return result;
+		},
+		/**
+		 * Deletes a review
+		 * Requires authentication and ensures the user owns the review (unless super admin)
+		 * @param id - The review ID to delete
+		 */
+		deleteReview: async (_, { id }, context) => {
+			if (!context.currentUser) {
+				throw new Error('Authentication required to delete a review');
+			}
+
+			const isSuperAdmin = false;
+
+			let existingReview;
+			if (isSuperAdmin) {
+				existingReview = await context.DB.prepare(
+					'SELECT * FROM reviews WHERE id = ?'
+				)
+					.bind(id)
+					.first();
+			} else {
+				existingReview = await context.DB.prepare(
+					'SELECT * FROM reviews WHERE id = ? AND user_id = ?'
+				)
+					.bind(id, context.currentUser.id)
+					.first();
+			}
+
+			if (!existingReview) {
+				throw new Error(
+					'Review not found or you do not have permission to delete it'
+				);
+			}
+
+			if (isSuperAdmin) {
+				await context.DB.prepare('DELETE FROM reviews WHERE id = ?')
+					.bind(id)
+					.run();
+			} else {
+				await context.DB.prepare(
+					'DELETE FROM reviews WHERE id = ? AND user_id = ?'
+				)
+					.bind(id, context.currentUser.id)
+					.run();
+			}
+
+			return true;
+		},
 	},
 	User: {
+		/**
+		 * Retrieves all favorites for a user
+		 */
 		favorites: async (parent, _, context) => {
 			const { results } = await context.DB.prepare(
-				`
-        SELECT * FROM favorites WHERE user_id = ?
-      `
+				`SELECT * FROM favorites WHERE user_id = ?`
 			)
 				.bind(parent.id)
 				.all();
-
 			return results;
 		},
+		/**
+		 * Retrieves all reviews for a user
+		 */
+		reviews: async (parent, _, context) => {
+			const { results } = await context.DB.prepare(
+				`SELECT * FROM reviews WHERE user_id = ?`
+			)
+				.bind(parent.id)
+				.all();
+			return results;
+		},
+		/**
+		 * Maps display_name field to displayName for GraphQL schema
+		 */
+		displayName: parent => parent.display_name,
+		/**
+		 * Maps photo_url field to photoURL for GraphQL schema
+		 */
+		photoURL: parent => parent.photo_url,
+		/**
+		 * Maps firebase_id field to firebaseId for GraphQL schema
+		 */
+		firebaseId: parent => parent.firebase_id,
 	},
 	Favorite: {
+		/**
+		 * Retrieves the associated item for a favorite
+		 * Supports both accommodation and destination types
+		 */
 		item: async (parent, _, context) => {
 			const { type, itemId } = parent;
 
@@ -298,9 +504,25 @@ const resolvers = {
 			return null;
 		},
 	},
+	Review: {
+		/**
+		 * Retrieves the user who wrote the review
+		 * Handles both userId and user_id field variations
+		 */
+		user: async (parent, _, context) => {
+			const userId = parent.userId || parent.user_id;
+			if (!userId) return null;
+			const result = await context.DB.prepare(
+				'SELECT * FROM users WHERE id = ?'
+			)
+				.bind(userId)
+				.first();
+			return result;
+		},
+	},
 };
 
-const server = new ApolloServer({
+const server = new ApolloServer<Context>({
 	typeDefs,
 	resolvers,
 });
@@ -308,16 +530,78 @@ const server = new ApolloServer({
 const corsHeaders = {
 	'Access-Control-Allow-Origin':
 		process.env.NODE_ENV === 'production'
-			? process.env.GATSBY_FRONTEND_URL
+			? process.env.GATSBY_FRONTEND_URL || ''
 			: 'http://localhost:8000',
 	'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
 	'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
 
-const apolloHandler = startServerAndCreateCloudflareWorkersHandler(server, {
-	context: async ({ env }: { env: any }) => ({ DB: env.DB }),
-});
+/**
+ * Apollo handler with authentication context
+ * Verifies Firebase tokens and sets up user context for GraphQL operations
+ */
+const apolloHandler = startServerAndCreateCloudflareWorkersHandler(
+	server as any,
+	{
+		context: async ({
+			env,
+			request,
+		}: {
+			env: any;
+			request: Request;
+		}): Promise<Context> => {
+			let currentUser = null;
+			const authHeader = request.headers.get('Authorization');
+			console.log('Backend: Auth header present:', !!authHeader);
 
+			if (authHeader && authHeader.startsWith('Bearer ')) {
+				const idToken = authHeader.substring(7);
+				console.log('Backend: Token received, length:', idToken.length);
+				try {
+					const projectId =
+						env.FIREBASE_PROJECT_ID ||
+						process.env.FIREBASE_PROJECT_ID ||
+						'c868-fdbb3';
+					console.log('Backend: Using project ID:', projectId);
+					const payload = await verifyFirebaseToken(
+						idToken,
+						projectId
+					);
+					console.log(
+						'Backend: Token verified, user_id:',
+						payload.user_id
+					);
+					// Find or create user in DB by firebaseId (payload.user_id)
+					const userResult = await env.DB.prepare(
+						'SELECT * FROM users WHERE firebase_id = ?'
+					)
+						.bind(payload.user_id)
+						.first();
+					if (userResult) {
+						currentUser = userResult;
+						console.log(
+							'Backend: User found in DB:',
+							userResult.id
+						);
+					} else {
+						console.log(
+							'Backend: User not found in DB for firebase_id:',
+							payload.user_id
+						);
+					}
+				} catch (err) {
+					console.error('Backend: Token verification failed:', err);
+				}
+			}
+			return { DB: env.DB, currentUser };
+		},
+	}
+);
+
+/**
+ * Main Cloudflare Worker handler
+ * Routes requests to appropriate endpoints and handles CORS
+ */
 export default {
 	async fetch(request: Request, env: any, ctx: any) {
 		const url = new URL(request.url);
