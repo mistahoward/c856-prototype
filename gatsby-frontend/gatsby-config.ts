@@ -1,11 +1,13 @@
 import type { GatsbyConfig } from 'gatsby';
 
+require('dotenv').config({ path: '.env' });
+
 const config: GatsbyConfig = {
 	siteMetadata: {
 		siteUrl: 'http://alexhoward.dev/c856-prototype',
 	},
 	flags: {
-		DEV_SSR: true
+		DEV_SSR: true,
 	},
 	...(process.env.NODE_ENV === 'production' && {
 		assetPrefix: '/c856-prototype',
