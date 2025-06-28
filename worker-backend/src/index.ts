@@ -528,10 +528,7 @@ const server = new ApolloServer<Context>({
 });
 
 const corsHeaders = {
-	'Access-Control-Allow-Origin':
-		process.env.NODE_ENV === 'production'
-			? process.env.GATSBY_FRONTEND_URL || ''
-			: 'http://localhost:8000',
+	'Access-Control-Allow-Origin': process.env.GATSBY_FRONTEND_URL,
 	'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
 	'Access-Control-Allow-Headers': 'Content-Type, Authorization',
 };
