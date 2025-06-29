@@ -14,8 +14,7 @@ import { useQuery, gql, useMutation } from '@apollo/client';
 import { getImage } from 'gatsby-plugin-image';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from 'react-toastify';
 
 import Layout from '../components/layout';
 import '../scss/main.scss';
@@ -210,16 +209,6 @@ const ReviewPage = () => {
 	return (
 		<Container id="root" fluid>
 			<Layout>
-				<ToastContainer
-					position="top-right"
-					autoClose={3000}
-					hideProgressBar={false}
-					newestOnTop
-					closeOnClick
-					pauseOnFocusLoss
-					draggable
-					pauseOnHover
-				/>
 				<Container className="mt-4">
 					<Row align="start">
 						<Col

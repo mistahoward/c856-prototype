@@ -12,6 +12,7 @@ import { startCase } from 'lodash';
 
 import type { MapContainerProps } from './types';
 import MarkersList from './marker-list';
+import FavoriteButton from './favorite-button';
 
 const MapContainer = ({ locations, type }: MapContainerProps) => {
 	const position = [-16.5004, -151.7415];
@@ -79,8 +80,8 @@ const MapContainer = ({ locations, type }: MapContainerProps) => {
 										<h4>{marker.title}</h4>
 									</Col>
 								</Row>
-								<Row>
-									<Col>
+								<Row className="mb-2">
+									<Col xs={8}>
 										<Button
 											className="w-100"
 											variant="primary"
@@ -90,6 +91,13 @@ const MapContainer = ({ locations, type }: MapContainerProps) => {
 										>
 											See More
 										</Button>
+									</Col>
+									<Col xs={4} className="text-end">
+										<FavoriteButton
+											type={type}
+											itemId={marker.id.toString()}
+											size="sm"
+										/>
 									</Col>
 								</Row>
 							</Popup>

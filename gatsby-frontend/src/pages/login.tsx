@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap';
 import { StaticImage } from 'gatsby-plugin-image';
 import { navigate, withPrefix } from 'gatsby';
+import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/AuthContext';
 import Layout from '../components/layout';
 import '../scss/main.scss';
@@ -29,9 +30,11 @@ const LoginPage: FC = () => {
 		setError(null);
 		try {
 			await signInWithGoogle();
+			toast.success('Sign-in successful!');
 			navigate(withPrefix('/'));
 		} catch (err: any) {
 			setError(err.message || 'Failed to sign in with Google');
+			toast.error(err.message || 'Failed to sign in with Google');
 		} finally {
 			setLoading(false);
 		}

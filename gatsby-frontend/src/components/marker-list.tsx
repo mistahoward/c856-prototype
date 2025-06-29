@@ -1,9 +1,10 @@
 import React from 'react';
-import { Card, Row } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { graphql, useStaticQuery } from 'gatsby';
 
 import type { MarkerListProps } from './types';
+import FavoriteButton from './favorite-button';
 
 const MarkersList = ({
 	locations,
@@ -38,10 +39,6 @@ const MarkersList = ({
 					<Row
 						key={`${marker.id}-row`}
 						className="mb-2 location-card"
-						onClick={() => {
-							map.setView(marker.coordinates, 13);
-							openPopup(index);
-						}}
 					>
 						<Card>
 							{image && (
@@ -52,8 +49,43 @@ const MarkersList = ({
 								/>
 							)}
 							<Card.Body>
-								<Card.Title>{marker.title}</Card.Title>
-								<Card.Text>{marker.description}</Card.Text>
+								<Row>
+									<Col xs={10}>
+										<Card.Title>{marker.title}</Card.Title>
+										<Card.Text>
+											{marker.description}
+										</Card.Text>
+									</Col>
+									<Col xs={2} className="text-end">
+										<FavoriteButton
+											type={
+												title
+													.toLowerCase()
+													.includes('accommodation')
+													? 'accommodation'
+													: 'destination'
+											}
+											itemId={marker.id.toString()}
+											size="sm"
+										/>
+									</Col>
+								</Row>
+								<Row>
+									<Col>
+										<button
+											className="btn btn-primary w-100"
+											onClick={() => {
+												map.setView(
+													marker.coordinates,
+													13
+												);
+												openPopup(index);
+											}}
+										>
+											View on Map
+										</button>
+									</Col>
+								</Row>
 							</Card.Body>
 						</Card>
 					</Row>

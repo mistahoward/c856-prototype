@@ -54,3 +54,19 @@ export type Review = {
 	image?: string;
 	date: EpochTimeStamp;
 };
+
+export type Favorite = {
+	id: string;
+	userId: string;
+	type: 'accommodation' | 'destination';
+	itemId: string;
+	createdAt: string;
+	item?: Accommodation | Destination;
+};
+
+export type FavoriteItem = {
+	id: string;
+	title: string;
+	description: string;
+	image: string;
+};

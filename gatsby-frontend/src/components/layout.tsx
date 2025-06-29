@@ -17,6 +17,7 @@ import { useQuery, gql } from '@apollo/client';
 import { useAuth } from '../contexts/AuthContext';
 import { useUserSync } from '../hooks/useUserSync';
 import { useLocation } from '@reach/router';
+import { toast } from 'react-toastify';
 
 import type { LayoutProps } from './types';
 import '../scss/main.scss';
@@ -47,7 +48,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 	const { currentUser, logout } = useAuth();
 	const location = useLocation();
 
-	// Sync user to backend when they sign in
 	useUserSync();
 
 	const { loading, error, data: apolloData } = useQuery(GET_SEARCH_DATA);
@@ -130,9 +130,11 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 	const handleLogout = async () => {
 		try {
 			await logout();
-			navigate(withPrefix('/'));
+			toast.success('Successfully signed out!');
+			setTimeout(() => navigate(withPrefix('/')), 1000);
 		} catch (error) {
 			console.error('Error logging out:', error);
+			toast.error('Error logging out');
 		}
 	};
 
@@ -234,7 +236,14 @@ const Layout: FC<LayoutProps> = ({ children }) => {
 									{currentUser.displayName ||
 										currentUser.email}
 								</Dropdown.Toggle>
-								<Dropdown.Menu>
+								<Dropdown.Menu align="end">
+									<Dropdown.Item
+										as={Link}
+										to={withPrefix('/profile')}
+									>
+										Profile
+									</Dropdown.Item>
+									<Dropdown.Divider />
 									<Dropdown.Item onClick={handleLogout}>
 										Sign Out
 									</Dropdown.Item>

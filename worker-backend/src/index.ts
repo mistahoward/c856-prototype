@@ -23,8 +23,8 @@ const typeDefs = gql`
 	type Mutation {
 		createUser(input: CreateUserInput!): User
 		updateUser(id: ID!, input: UpdateUserInput!): User
-		saveFavorite(userId: ID!, type: String!, itemId: ID!): User
-		removeFavorite(userId: ID!, type: String!, itemId: ID!): User
+		saveFavorite(userId: ID!, type: String!, itemId: String!): User
+		removeFavorite(userId: ID!, type: String!, itemId: String!): User
 		createReview(input: CreateReviewInput!): Review
 		updateReview(id: ID!, input: UpdateReviewInput!): Review
 		deleteReview(id: ID!): Boolean
@@ -69,15 +69,9 @@ const typeDefs = gql`
 		userId: ID!
 		type: String!
 		itemId: ID!
-		item: FavoriteItem
+		accommodation: Accommodation
+		destination: Destination
 		createdAt: String
-	}
-
-	type FavoriteItem {
-		id: ID!
-		title: String
-		description: String
-		image: String
 	}
 
 	type Accommodation {
@@ -246,11 +240,10 @@ const resolvers = {
 		},
 		/**
 		 * Retrieves the currently authenticated user
-		 * TODO: Implement authentication token parsing
+		 * Returns the user from the authentication context
 		 */
 		currentUser: async (_, _2, context) => {
-			// TODO: Get user from auth token
-			return null;
+			return context.currentUser;
 		},
 	},
 	Mutation: {
@@ -445,7 +438,8 @@ const resolvers = {
 	},
 	User: {
 		/**
-		 * Retrieves all favorites for a user
+		 * Retrieves all favorites for a user, filtering out any with null or empty item_id
+		 * Maps item_id to itemId for GraphQL schema
 		 */
 		favorites: async (parent, _, context) => {
 			const { results } = await context.DB.prepare(
@@ -453,7 +447,16 @@ const resolvers = {
 			)
 				.bind(parent.id)
 				.all();
-			return results;
+			console.log('DB favorites results:', results);
+			// Filter and map to match GraphQL schema
+			const filtered = results
+				.filter(fav => fav.item_id && fav.item_id !== '')
+				.map(fav => ({
+					...fav,
+					itemId: fav.item_id,
+				}));
+			console.log('Filtered favorites returned to GraphQL:', filtered);
+			return filtered;
 		},
 		/**
 		 * Retrieves all reviews for a user
@@ -481,27 +484,63 @@ const resolvers = {
 	},
 	Favorite: {
 		/**
-		 * Retrieves the associated item for a favorite
-		 * Supports both accommodation and destination types
+		 * Retrieves the associated accommodation for a favorite
 		 */
-		item: async (parent, _, context) => {
+		accommodation: async (parent, _, context) => {
 			const { type, itemId } = parent;
 
-			if (type === 'accommodation') {
-				return await context.DB.prepare(
-					'SELECT * FROM accommodations WHERE id = ?'
-				)
-					.bind(itemId)
-					.first();
-			} else if (type === 'destination') {
-				return await context.DB.prepare(
-					'SELECT * FROM destinations WHERE id = ?'
-				)
-					.bind(itemId)
-					.first();
-			}
+			if (type !== 'accommodation') return null;
 
-			return null;
+			const result = await context.DB.prepare(
+				'SELECT * FROM accommodations WHERE id = ?'
+			)
+				.bind(itemId)
+				.first();
+
+			if (!result) return null;
+
+			return {
+				id: result.id,
+				title: result.title,
+				description: result.description,
+				coordinates: { lat: result.lat, lng: result.lng },
+				image: result.image,
+				packages: {
+					expensive: {
+						price: result.expensive_price,
+						info: result.expensive_info,
+					},
+					moderate: {
+						price: result.moderate_price,
+						info: result.moderate_info,
+					},
+					cheapest: {
+						price: result.cheapest_price,
+						info: result.cheapest_info,
+					},
+				},
+			};
+		},
+		/**
+		 * Retrieves the associated destination for a favorite
+		 */
+		destination: async (parent, _, context) => {
+			const { type, itemId } = parent;
+
+			if (type !== 'destination') return null;
+
+			const result = await context.DB.prepare(
+				'SELECT * FROM destinations WHERE id = ?'
+			)
+				.bind(itemId)
+				.first();
+
+			if (!result) return null;
+
+			return {
+				...result,
+				coordinates: { lat: result.lat, lng: result.lng },
+			};
 		},
 	},
 	Review: {

@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useMutation, gql } from '@apollo/client';
+import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/AuthContext';
 
 const CREATE_USER = gql`
@@ -27,15 +28,15 @@ const UPDATE_USER = gql`
 `;
 
 export const UserSync: React.FC = () => {
-	const { currentUser } = useAuth();
+	const { currentUser, loading } = useAuth();
 	const [createUser] = useMutation(CREATE_USER);
 	const [updateUser] = useMutation(UPDATE_USER);
 
 	useEffect(() => {
+		if (loading) return;
 		if (currentUser) {
 			const syncUser = async () => {
 				try {
-					// TODO: Check if user exists in backend
 					await createUser({
 						variables: {
 							input: {
@@ -46,20 +47,23 @@ export const UserSync: React.FC = () => {
 							},
 						},
 					});
+					toast.success('Profile synchronized successfully!');
 				} catch (error) {
-					// TODO: Update user in backend
 					if (
 						error instanceof Error &&
 						error.message.includes('UNIQUE constraint failed')
 					)
 						console.log('User already exists in backend');
-					else console.error('Error syncing user:', error);
+					else {
+						console.error('Error syncing user:', error);
+						toast.error('Failed to synchronize profile');
+					}
 				}
 			};
 
 			syncUser();
 		}
-	}, [currentUser, createUser, updateUser]);
+	}, [currentUser, loading, createUser, updateUser]);
 
 	return null;
 };

@@ -2411,6 +2411,11 @@ type GetIndexImagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 type GetIndexImagesQuery = { readonly allFile: { readonly nodes: ReadonlyArray<{ readonly relativePath: string, readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null }> } };
 
+type GetProfileImagesQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+type GetProfileImagesQuery = { readonly allFile: { readonly nodes: ReadonlyArray<{ readonly relativePath: string, readonly childImageSharp: { readonly gatsbyImageData: import('gatsby-plugin-image').IGatsbyImageData } | null }> } };
+
 type GetReviewImagesQueryVariables = Exact<{ [key: string]: never; }>;
 
 
