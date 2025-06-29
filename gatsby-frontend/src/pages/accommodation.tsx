@@ -97,24 +97,29 @@ const AccommodationPage: FC<PageProps> = ({ location }) => {
 	);
 
 	const packages = accommodation.packages;
-	const accommodationTitles = Object.keys(packages);
+	const filteredPackageEntries = Object.entries(packages).filter(
+		([key]) => key !== '__typename'
+	);
+	const accommodationTitles = filteredPackageEntries.map(([key]) => key);
 
-	const accommodationCards = Object.values(packages).map((ap: any, index) => (
-		<Col xs={12} className="justify-content-center mt-2" key={index}>
-			<Card>
-				<Card.Body>
-					<Card.Title>
-						{startCase(accommodationTitles[index])}
-						&nbsp;Package
-					</Card.Title>
-					<Card.Text>{ap.info}</Card.Text>
-					<Card.Text className="text-muted">
-						{currency(ap.price).format()}
-					</Card.Text>
-				</Card.Body>
-			</Card>
-		</Col>
-	));
+	const accommodationCards = filteredPackageEntries.map(
+		([key, ap]: [string, any], index) => (
+			<Col xs={12} className="justify-content-center mt-2" key={index}>
+				<Card>
+					<Card.Body>
+						<Card.Title>
+							{startCase(accommodationTitles[index])}
+							&nbsp;Package
+						</Card.Title>
+						<Card.Text>{ap.info}</Card.Text>
+						<Card.Text className="text-muted">
+							{currency(ap.price).format()}
+						</Card.Text>
+					</Card.Body>
+				</Card>
+			</Col>
+		)
+	);
 
 	return (
 		<Container fluid id="root">

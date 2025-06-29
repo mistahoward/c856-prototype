@@ -73,7 +73,7 @@ const MarkersList = ({
 								<Row>
 									<Col>
 										<button
-											className="btn btn-primary w-100"
+											className="btn btn-primary w-100 mt-2"
 											onClick={() => {
 												map.setView(
 													marker.coordinates,

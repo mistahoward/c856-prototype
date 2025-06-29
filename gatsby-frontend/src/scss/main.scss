@@ -606,3 +606,8 @@ $theme-colors: (
     background: var(--bs-primary-hover);
   }
 }
+
+.site-wrapper > main > div.row:first-child {
+	padding-left: 2rem;
+	padding-right: 2rem;
+}
